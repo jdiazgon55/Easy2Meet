@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Facil Quedar</string>
+    <string name="crear_calendario">Crear calendario</string>
+    <string name="instrucciones">Instrucciones</string>
+    <string name="mis_calendarios">Mis calendarios</string>
+    <string name="ver_calendario">Ver calendario</string>
+    <string name="listo">Listo</string>
+</resources>
