@@ -1,33 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="es.uv.jaimediazgonzalez.facilquedar.PantallaInicial">
+    android:layout_marginTop="25dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical" >
+    <EditText
+        android:id="@+id/nombreCalendario"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="25dp"
+        android:hint="@string/set_nombre_calendario" />
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:orientation="vertical">
+    <TextView
+        android:id="@+id/text_view_nombre"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="9dp"
+        android:layout_toLeftOf="@+id/nombreCalendario"
+        android:text="@string/nombre_calendario_textView"
+        android:textSize="20sp" />
 
-            <Button
-                android:id="@+id/instrucciones"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/listo"
-                android:layout_marginBottom="25dp"
-                android:background="#0D98FF"
-                android:textColor="#FFFFFF"/>
+    <Spinner
+        android:id="@+id/spinnerTipoCalendario"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/nombreCalendario"
+        android:layout_marginBottom="25dp"
+        android:entries="@array/tipo_calendario"
+        android:prompt="@string/string_spinner_tipo_calendario" />
 
-        </LinearLayout>
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/text_view_horario"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/nombreCalendario"
+        android:layout_toLeftOf="@+id/spinnerTipoCalendario"
+        android:text="@string/horario_textView"
+        android:textSize="20sp" />
 
-</android.support.constraint.ConstraintLayout>
+    <EditText
+        android:id="@+id/desdeFechaPicker"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/spinnerTipoCalendario"
+        android:layout_marginBottom="25dp"
+        android:hint="@string/set_desde_fecha" />
+
+    <TextView
+        android:id="@+id/text_view_hasta"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/spinnerTipoCalendario"
+        android:layout_marginTop="9dp"
+        android:layout_toLeftOf="@+id/nombreCalendario"
+        android:text="@string/desde_textView"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/hastaFechaPicker"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/desdeFechaPicker"
+        android:layout_marginBottom="25dp"
+        android:hint="@string/set_hasta_fecha" />
+
+    <TextView
+        android:id="@+id/text_view_desde"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/desdeFechaPicker"
+        android:layout_marginTop="9dp"
+        android:layout_toLeftOf="@+id/nombreCalendario"
+        android:text="@string/hasta_textView"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/instrucciones"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="25dp"
+        android:background="#0D98FF"
+        android:text="@string/listo"
+        android:textColor="#FFFFFF" />
+</RelativeLayout>

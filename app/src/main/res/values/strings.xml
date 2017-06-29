@@ -4,5 +4,21 @@
     <string name="instrucciones">Instrucciones</string>
     <string name="mis_calendarios">Mis calendarios</string>
     <string name="ver_calendario">Ver calendario</string>
+    <string name="set_nombre_calendario">Nombre del calendario</string>
+    <string name="set_desde_fecha">DD/MM/AAAA</string>
+    <string name="set_hasta_fecha">DD/MM/AAAA</string>
     <string name="listo">Listo</string>
+    <string name="nombre_calendario_textView">Nombre: </string>
+    <string name="horario_textView">Horario: </string>
+    <string name="desde_textView">Desde: </string>
+    <string name="hasta_textView">Hasta: </string>
+
+
+    <string name="string_spinner_tipo_calendario">Elige horario</string>
+    <string-array name="tipo_calendario">
+        <item>Por horas</item>
+        <item>Por días</item>
+        <item>Por semanas</item>
+        <item>Por meses</item>
+    </string-array>
 </resources>
