@@ -25,7 +25,7 @@ public class PantallaInicial extends AppCompatActivity {
     }
 
     /* LISTENERS */
-    final View.OnClickListener crearCalendarioListener = new View.OnClickListener(){
+    final View.OnClickListener crearCalendarioListener = new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {

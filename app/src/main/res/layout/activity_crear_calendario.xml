@@ -52,6 +52,7 @@
         android:layout_alignParentRight="true"
         android:layout_below="@id/spinnerTipoCalendario"
         android:layout_marginBottom="25dp"
+        android:focusable="false"
         android:hint="@string/set_desde_fecha" />
 
     <TextView
@@ -72,6 +73,7 @@
         android:layout_alignParentRight="true"
         android:layout_below="@id/desdeFechaPicker"
         android:layout_marginBottom="25dp"
+        android:focusable="false"
         android:hint="@string/set_hasta_fecha" />
 
     <TextView
@@ -85,8 +87,49 @@
         android:text="@string/hasta_textView"
         android:textSize="20sp" />
 
+    <Spinner
+        android:id="@+id/spinnerHoraCalendarioInicial"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/hastaFechaPicker"
+        android:layout_marginBottom="55dp"
+        android:entries="@array/horas_calendario"
+        android:prompt="@string/string_spinner_horas_calendario" />
+
+    <TextView
+        android:id="@+id/text_view_hora_inicial"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/hastaFechaPicker"
+        android:layout_marginBottom="50dp"
+        android:layout_toLeftOf="@+id/spinnerHoraCalendarioInicial"
+        android:text="@string/hora_inicial_textView"
+        android:textSize="20sp" />
+
+    <Spinner
+        android:id="@+id/spinnerHoraCalendarioFinal"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/spinnerHoraCalendarioInicial"
+        android:layout_marginBottom="25dp"
+        android:entries="@array/horas_calendario"
+        android:prompt="@string/string_spinner_horas_calendario" />
+
+    <TextView
+        android:id="@+id/text_view_hora_final"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/spinnerHoraCalendarioInicial"
+        android:layout_toLeftOf="@+id/spinnerHoraCalendarioFinal"
+        android:text="@string/hora_final_textView"
+        android:textSize="20sp" />
+
     <Button
-        android:id="@+id/instrucciones"
+        android:id="@+id/listo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
