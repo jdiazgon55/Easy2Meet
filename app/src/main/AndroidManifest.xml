@@ -27,7 +27,7 @@
         <activity
             android:name=".Calendario"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

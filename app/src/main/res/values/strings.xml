@@ -8,12 +8,14 @@
     <string name="set_desde_fecha">DD/MM/AAAA</string>
     <string name="set_hasta_fecha">DD/MM/AAAA</string>
     <string name="listo">Listo</string>
+    <string name="guardar">Guardar</string>
     <string name="nombre_calendario_textView">Nombre: </string>
     <string name="horario_textView">Horario: </string>
     <string name="hora_inicial_textView">Hora inicial: </string>
     <string name="hora_final_textView">Hora final: </string>
     <string name="desde_textView">Desde: </string>
     <string name="hasta_textView">Hasta: </string>
+    <string name="consejo_mantener_dia">Manten apretado un día para seleccionar las horas </string>
 
 
     <string name="string_spinner_tipo_calendario">Elige horario</string>
