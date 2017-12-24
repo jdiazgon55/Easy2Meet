@@ -3,4 +3,5 @@
     <declare-styleable name="MultiSpinner">
         <attr name="android:entries" />
     </declare-styleable>
+
 </resources>

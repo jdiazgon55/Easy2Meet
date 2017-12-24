@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">FacilQuedar</string>
     <string name="crear_calendario">Crear calendario</string>
+    <string name="guardar_horas">Guardar horas</string>
     <string name="instrucciones">Instrucciones</string>
     <string name="mis_calendarios">Mis calendarios</string>
     <string name="ver_calendario">Ver calendario</string>
     <string name="set_nombre_calendario">Nombre del calendario</string>
+    <string name="codigo_calendario_edit_text">Código del calendario</string>
     <string name="set_desde_fecha">DD/MM/AAAA</string>
     <string name="set_hasta_fecha">DD/MM/AAAA</string>
     <string name="listo">Listo</string>
@@ -15,7 +17,9 @@
     <string name="hora_final_textView">Hora final: </string>
     <string name="desde_textView">Desde: </string>
     <string name="hasta_textView">Hasta: </string>
-    <string name="consejo_mantener_dia">Manten apretado un día para seleccionar las horas </string>
+    <string name="consejo_mantener_dia">Selecciona por lo menos un día para crear el calendario </string>
+    <string name="consejo_codigo_calendario">Envía este código a tus amigos para que puedan utilizar el calendario: </string>
+    <string name="consejo_mantener_hora">Selecciona las horas y aprieta en guardar.</string>
 
 
     <string name="string_spinner_tipo_calendario">Elige horario</string>

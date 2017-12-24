@@ -28,6 +28,14 @@
             android:name=".Calendario"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".SeleccionarHoras"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".CalendarioCreado"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

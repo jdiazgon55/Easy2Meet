@@ -20,7 +20,7 @@
         app:mcv_showOtherDates="all" />
 
     <Button
-        android:id="@+id/guardar"
+        android:id="@+id/guardarCalendario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -33,3 +33,4 @@
 
 
 </LinearLayout>
+
