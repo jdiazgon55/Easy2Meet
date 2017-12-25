@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.ArrayList;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by Familia Diaz on 24/12/2017.
@@ -18,7 +18,8 @@ public class CalendarioCreado extends AppCompatActivity {
 
     private Button aceptar;
     private EditText codigo;
-    private static AtomicLong idCounter = new AtomicLong();
+    private ArrayList<String> horasSeleccionadas;
+    private ArrayList<String> diasSeleccionados;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,9 @@ public class CalendarioCreado extends AppCompatActivity {
 
         aceptar = (Button) findViewById(R.id.listoCodigo);
         codigo = (EditText) findViewById(R.id.codigo);
+
+        horasSeleccionadas = getIntent().getStringArrayListExtra("horasSeleccionadas");
+        diasSeleccionados = getIntent().getStringArrayListExtra("diasSeleccionados");
 
         String codigoUnico = createUniqueId();
         codigo.setText(codigoUnico);

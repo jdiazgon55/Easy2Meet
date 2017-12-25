@@ -22,6 +22,7 @@ public class PantallaInicial extends AppCompatActivity {
 
         /* LISTENERS */
         crearCalendario.setOnClickListener(crearCalendarioListener);
+        verCalendario.setOnClickListener(verCalendarioListener);
     }
 
     /* LISTENERS */
@@ -33,6 +34,19 @@ public class PantallaInicial extends AppCompatActivity {
             Intent explicit_intent;
             //Instanciamos el Intent dandole:
             explicit_intent = new Intent(PantallaInicial.this, CrearCalendario.class);
+            startActivity(explicit_intent);
+        }
+    };
+
+    /* LISTENERS */
+    final View.OnClickListener verCalendarioListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            //Declaro el Intent
+            Intent explicit_intent;
+            //Instanciamos el Intent dandole:
+            explicit_intent = new Intent(PantallaInicial.this, VerCalendario.class);
             startActivity(explicit_intent);
         }
     };

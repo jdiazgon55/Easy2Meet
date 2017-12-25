@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import static android.R.style.Widget;
 
@@ -32,6 +33,7 @@ public class Calendario extends AppCompatActivity implements OnDateSelectedListe
     private Button guardar;
     private Date fechaDesde, fechaHasta;
     private String horaInicial, horaFinal;
+    private ArrayList<String> listaHorasSeleccionadas;
     private final ArrayList<String> listaHoras = new ArrayList<String>(
             Arrays.asList("00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00"
                     , "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00"
@@ -109,7 +111,7 @@ public class Calendario extends AppCompatActivity implements OnDateSelectedListe
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
             if(resultCode == RESULT_OK) {
-                ArrayList<String> listaHorasSeleccionadas = data.getStringArrayListExtra("listaHorasSeleccionadas");
+                listaHorasSeleccionadas = data.getStringArrayListExtra("listaHorasSeleccionadas");
                 if (calendario.getSelectedDates().size() >= 1){
                     guardar.setEnabled(true);
                     guardar.setBackgroundColor(Color.parseColor("#0D98FF"));
@@ -127,6 +129,15 @@ public class Calendario extends AppCompatActivity implements OnDateSelectedListe
             Intent explicit_intent;
             //Instanciamos el Intent dandole:
             explicit_intent = new Intent(Calendario.this, CalendarioCreado.class);
+
+            List<CalendarDay> diasSeleccionados = calendario.getSelectedDates();
+            ArrayList<String> dias = new ArrayList<String>();
+            for (CalendarDay dia: diasSeleccionados) {
+                dias.add(dia.getDate().toString());
+            }
+            explicit_intent.putStringArrayListExtra("diasSeleccionados", dias);
+            explicit_intent.putStringArrayListExtra("horasSeleccionadas", listaHorasSeleccionadas);
+
             startActivity(explicit_intent);
         }
     };
