@@ -52,7 +52,7 @@ public class CalendarioCreado extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
-            //Declaro el Intent
+            //Declaro el Intent.
             Intent explicit_intent;
             //Instanciamos el Intent dandole:
             explicit_intent = new Intent(CalendarioCreado.this, PantallaInicial.class);
