@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -29,8 +32,13 @@ public class CalendarioCreado extends AppCompatActivity {
         aceptar = (Button) findViewById(R.id.listoCodigo);
         codigo = (EditText) findViewById(R.id.codigo);
 
-        horasSeleccionadas = getIntent().getStringArrayListExtra("horasSeleccionadas");
+        //horasSeleccionadas = getIntent().getStringArrayListExtra("horasSeleccionadas");
         diasSeleccionados = getIntent().getStringArrayListExtra("diasSeleccionados");
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+
+        myRef.setValue(diasSeleccionados);
 
         String codigoUnico = createUniqueId();
         codigo.setText(codigoUnico);

@@ -25,10 +25,10 @@
 
     <string name="string_spinner_tipo_calendario">Elige horario</string>
     <string-array name="tipo_calendario">
-        <item>Por horas</item>
         <item>Por días</item>
-        <item>Por semanas</item>
-        <item>Por meses</item>
+        <item>Por horas (no disponible)</item>
+        <item>Por semanas (no disponible)</item>
+        <item>Por meses (no disponible)</item>
     </string-array>
     <string name="string_spinner_horas_calendario">Elige horario</string>
     <string-array name="horas_calendario">

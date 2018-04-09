@@ -32,8 +32,14 @@ public class CrearCalendario  extends AppCompatActivity {
 
         horaInicial = (Spinner) findViewById(R.id.spinnerHoraCalendarioInicial);
         horaFinal = (Spinner) findViewById(R.id.spinnerHoraCalendarioFinal);
-        //Ponemos hora final por defecto
+
+        //Ponemos hora inicial y final por defecto
+        horaInicial.setSelection(0);
         horaFinal.setSelection(23);
+
+        //Version inicial solo con dias
+        horaInicial.setEnabled(false);
+        horaFinal.setEnabled(false);
 
         fechaDesde = (EditText) findViewById(R.id.desdeFechaPicker);
         fechaHasta = (EditText) findViewById(R.id.hastaFechaPicker);

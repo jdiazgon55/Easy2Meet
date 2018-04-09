@@ -18,6 +18,7 @@
     <TextView
         android:id="@+id/text_view_nombre"
         android:layout_width="0dp"
+        android:textStyle="bold"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="9dp"
@@ -38,6 +39,7 @@
     <TextView
         android:id="@+id/text_view_horario"
         android:layout_width="0dp"
+        android:textStyle="bold"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/nombreCalendario"
@@ -58,6 +60,7 @@
     <TextView
         android:id="@+id/text_view_hasta"
         android:layout_width="0dp"
+        android:textStyle="bold"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/spinnerTipoCalendario"
@@ -79,6 +82,7 @@
     <TextView
         android:id="@+id/text_view_desde"
         android:layout_width="0dp"
+        android:textStyle="bold"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/desdeFechaPicker"

@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/FacilQuedar.iml" filepath="$PROJECT_DIR$/FacilQuedar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Easy2Meet.iml" filepath="$PROJECT_DIR$/Easy2Meet.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

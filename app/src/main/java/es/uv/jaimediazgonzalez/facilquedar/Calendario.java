@@ -20,8 +20,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import static android.R.style.Widget;
-
 /**
  * Created by Familia Diaz on 02/07/2017.
  */
@@ -31,6 +29,7 @@ public class Calendario extends AppCompatActivity implements OnDateSelectedListe
 
     private MaterialCalendarView calendario;
     private Button guardar;
+    private CalendarDay currentSelectedDate = new CalendarDay();
     private Date fechaDesde, fechaHasta;
     private String horaInicial, horaFinal;
     private ArrayList<String> listaHorasSeleccionadas;
@@ -84,8 +83,14 @@ public class Calendario extends AppCompatActivity implements OnDateSelectedListe
         //Solo si quieres marcar esa fecha
         if (selected == true) {
 
+            if (calendario.getSelectedDates().size() >= 1){
+                guardar.setEnabled(true);
+                guardar.setBackgroundColor(Color.parseColor("#0D98FF"));
+            }
+
+            // Activar cuando quieras implementar horas
             //Array con la lista de las horas
-            ArrayList<String> spinnerArray = new ArrayList<String>();
+            /* ArrayList<String> spinnerArray = new ArrayList<String>();
             int horaInicialInt, horaFinalInt;
 
             horaInicialInt = Integer.parseInt(getFirstTwoCharacters(horaInicial));
@@ -103,7 +108,11 @@ public class Calendario extends AppCompatActivity implements OnDateSelectedListe
             //Metemos el array de horas en el intent
             explicit_intent.putExtra("spinnerArray", spinnerArray);
 
+            //Sirve para saber si tenemos que deseleccionar esta fecha
+
             startActivityForResult(explicit_intent, 1);
+            this.setCurrentSelectedDate(date);
+            */
         }
     }
 
@@ -116,6 +125,9 @@ public class Calendario extends AppCompatActivity implements OnDateSelectedListe
                     guardar.setEnabled(true);
                     guardar.setBackgroundColor(Color.parseColor("#0D98FF"));
                 }
+            }
+            else{
+                this.calendario.setDateSelected(this.getCurrentSelectedDate(), false);
             }
         }
     }
@@ -136,7 +148,7 @@ public class Calendario extends AppCompatActivity implements OnDateSelectedListe
                 dias.add(dia.getDate().toString());
             }
             explicit_intent.putStringArrayListExtra("diasSeleccionados", dias);
-            explicit_intent.putStringArrayListExtra("horasSeleccionadas", listaHorasSeleccionadas);
+            //explicit_intent.putStringArrayListExtra("horasSeleccionadas", listaHorasSeleccionadas);
 
             startActivity(explicit_intent);
         }
@@ -144,5 +156,13 @@ public class Calendario extends AppCompatActivity implements OnDateSelectedListe
 
     private String getFirstTwoCharacters(String time){
         return time.substring(0,2);
+    }
+
+    public CalendarDay getCurrentSelectedDate(){
+        return this.currentSelectedDate;
+    }
+
+    public void setCurrentSelectedDate(CalendarDay day){
+        this.currentSelectedDate = day;
     }
 }
