@@ -42,7 +42,8 @@ public class VerCalendario extends AppCompatActivity {
             //Declaro el Intent
             Intent explicit_intent;
             //Instanciamos el Intent dandole:
-            explicit_intent = new Intent(VerCalendario.this, PantallaInicial.class);
+            explicit_intent = new Intent(VerCalendario.this, CalendarioRecibido.class);
+            explicit_intent.putExtra("codigoUnico", codigo.getText().toString());
             startActivity(explicit_intent);
         }
     };
@@ -65,7 +66,7 @@ public class VerCalendario extends AppCompatActivity {
         }
     };
 
-    //Si tiene fecha válida, entonces podemos activar el botón.
+    //Si hay algo escrito, entonces continuar
     private void comprobarCodigo() {
         String s1 = codigo.getText().toString();
 

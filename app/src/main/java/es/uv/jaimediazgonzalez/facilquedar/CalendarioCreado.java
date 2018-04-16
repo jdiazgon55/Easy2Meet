@@ -10,7 +10,10 @@ import android.widget.EditText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 
 /**
@@ -23,6 +26,7 @@ public class CalendarioCreado extends AppCompatActivity {
     private EditText codigo;
     private ArrayList<String> horasSeleccionadas;
     private ArrayList<String> diasSeleccionados;
+    private String fechaDesdeString, fechaHastaString, nombreCalendario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +37,27 @@ public class CalendarioCreado extends AppCompatActivity {
         codigo = (EditText) findViewById(R.id.codigo);
 
         //horasSeleccionadas = getIntent().getStringArrayListExtra("horasSeleccionadas");
+        //Recogemos los datos del Intent
+        fechaDesdeString = getIntent().getStringExtra("fechaDesde");
+        fechaHastaString = getIntent().getStringExtra("fechaHasta");
+        nombreCalendario = getIntent().getStringExtra("nombreCalendario");
         diasSeleccionados = getIntent().getStringArrayListExtra("diasSeleccionados");
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-
-        myRef.setValue(diasSeleccionados);
 
         String codigoUnico = createUniqueId();
         codigo.setText(codigoUnico);
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference(codigoUnico);
+
+        DatabaseReference propiedadesCalendario = myRef.child("PropiedadesCalendario");
+        CalendarioObjeto calendarioObjeto = new CalendarioObjeto(nombreCalendario, fechaDesdeString,
+                fechaHastaString);
+        propiedadesCalendario.setValue(calendarioObjeto);
+
+        DatabaseReference users = myRef.child("Users");
+        DatabaseReference admin = users.child("Admin");
+        admin.setValue(diasSeleccionados);
+
         /* LISTENERS */
         aceptar.setOnClickListener(volverMenuPrincipalListener);
 

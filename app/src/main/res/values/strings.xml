@@ -21,7 +21,7 @@
     <string name="consejo_codigo_calendario">Envía este código a tus amigos para que puedan utilizar el calendario: </string>
     <string name="consejo_ver_calendario">Pega el código del calendario en el siguiente campo: </string>
     <string name="consejo_mantener_hora">Selecciona las horas y aprieta en guardar.</string>
-
+    <string name="nombre_calendario">Sin nombre</string>
 
     <string name="string_spinner_tipo_calendario">Elige horario</string>
     <string-array name="tipo_calendario">

@@ -31,7 +31,7 @@ public class Calendario extends AppCompatActivity implements OnDateSelectedListe
     private Button guardar;
     private CalendarDay currentSelectedDate = new CalendarDay();
     private Date fechaDesde, fechaHasta;
-    private String horaInicial, horaFinal;
+    private String horaInicial, horaFinal, nombreCalendario, fechaDesdeString, fechaHastaString;
     private ArrayList<String> listaHorasSeleccionadas;
     private final ArrayList<String> listaHoras = new ArrayList<String>(
             Arrays.asList("00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00"
@@ -45,8 +45,9 @@ public class Calendario extends AppCompatActivity implements OnDateSelectedListe
         setContentView(R.layout.activity_calendario);
 
         //Recogemos los datos del Intent
-        String fechaDesdeString = getIntent().getStringExtra("fechaDesde");
-        String fechaHastaString = getIntent().getStringExtra("fechaHasta");
+        fechaDesdeString = getIntent().getStringExtra("fechaDesde");
+        fechaHastaString = getIntent().getStringExtra("fechaHasta");
+        nombreCalendario = getIntent().getStringExtra("nombreCalendario");
         horaInicial = getIntent().getStringExtra("horaInicial");
         horaFinal = getIntent().getStringExtra("horaFinal");
 
@@ -144,10 +145,15 @@ public class Calendario extends AppCompatActivity implements OnDateSelectedListe
 
             List<CalendarDay> diasSeleccionados = calendario.getSelectedDates();
             ArrayList<String> dias = new ArrayList<String>();
+            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             for (CalendarDay dia: diasSeleccionados) {
-                dias.add(dia.getDate().toString());
+                String fecha = dia.getDay() + "/" + dia.getMonth() + "/" + dia.getYear();
+                dias.add(fecha);
             }
             explicit_intent.putStringArrayListExtra("diasSeleccionados", dias);
+            explicit_intent.putExtra("nombreCalendario", nombreCalendario);
+            explicit_intent.putExtra("fechaDesde", fechaDesdeString);
+            explicit_intent.putExtra("fechaHasta", fechaHastaString);
             //explicit_intent.putStringArrayListExtra("horasSeleccionadas", listaHorasSeleccionadas);
 
             startActivity(explicit_intent);

@@ -18,7 +18,7 @@ import android.widget.Spinner;
 
 public class CrearCalendario  extends AppCompatActivity {
     private Button listo;
-    private EditText fechaDesde, fechaHasta;
+    private EditText nombreCalendario, fechaDesde, fechaHasta;
     private Spinner horaInicial, horaFinal;
 
     @Override
@@ -41,6 +41,7 @@ public class CrearCalendario  extends AppCompatActivity {
         horaInicial.setEnabled(false);
         horaFinal.setEnabled(false);
 
+        nombreCalendario = (EditText) findViewById(R.id.nombreCalendario);
         fechaDesde = (EditText) findViewById(R.id.desdeFechaPicker);
         fechaHasta = (EditText) findViewById(R.id.hastaFechaPicker);
 
@@ -68,6 +69,11 @@ public class CrearCalendario  extends AppCompatActivity {
             explicit_intent = new Intent(CrearCalendario.this, Calendario.class);
 
             //Metemos las fechas en el intent
+            if(nombreCalendario.getText().toString().isEmpty())
+            {
+                nombreCalendario.setText(getResources().getString(R.string.nombre_calendario));
+            }
+            explicit_intent.putExtra("nombreCalendario", nombreCalendario.getText().toString());
             explicit_intent.putExtra("fechaDesde", fechaDesde.getText().toString());
             explicit_intent.putExtra("fechaHasta", fechaHasta.getText().toString());
             explicit_intent.putExtra("horaInicial", horaInicial.getSelectedItem().toString());

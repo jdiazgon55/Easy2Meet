@@ -40,6 +40,10 @@
             android:name=".VerCalendario"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".CalendarioRecibido"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
