@@ -54,7 +54,8 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
     private Button guardar;
     private TextView nombreCalendario;
     private Date fechaDesde, fechaHasta;
-    private String horaInicial, horaFinal, fechaDesdeString, fechaHastaString, codigoUnico;
+    private String horaInicial, horaFinal, fechaDesdeString, fechaHastaString, codigoUnico,
+            nombreUsuario;
     private ArrayList<String> listaHorasSeleccionadas;
     private final ArrayList<String> listaHoras = new ArrayList<String>(
             Arrays.asList("00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00"
@@ -69,6 +70,7 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
 
         //Recogemos los datos del Intent
         codigoUnico = getIntent().getStringExtra("codigoUnico");
+        nombreUsuario = getIntent().getStringExtra("nombreUsuario");
 
         nombreCalendario = (TextView) findViewById(R.id.text_view_mantener_dia);
         calendario = (MaterialCalendarView) findViewById(R.id.calendarioView);
@@ -116,7 +118,7 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
                     Integer day = Integer.parseInt(split[0]);
                     Integer month = Integer.parseInt(split[1]);
                     Integer year = Integer.parseInt(split[2]);
-                    CalendarDay tmpCalendarDay = CalendarDay.from(day, month, year);
+                    CalendarDay tmpCalendarDay = CalendarDay.from(year, month, day);
                     diasSeleccionados.add(tmpCalendarDay);
                 }
             }
@@ -160,6 +162,10 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
             outAnimation.setDuration(200);
             progressBarHolder.setAnimation(outAnimation);
             progressBarHolder.setVisibility(View.GONE);
+
+            String advertenciaElegirDia = getResources().getString(R.string.advertencia_elegir_dia);
+            Toast.makeText(CalendarioRecibido.this, advertenciaElegirDia,
+                    Toast.LENGTH_SHORT).show();
 
             Log.d(TAG, "Value is: " + propiedadesCalendarioHashMap.toString());
         }

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "952434032445",
+    "firebase_url": "https://easy2meet-64d79.firebaseio.com",
+    "project_id": "easy2meet-64d79",
+    "storage_bucket": "easy2meet-64d79.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:952434032445:android:bcdedc2d4ebf88af",
+        "android_client_info": {
+          "package_name": "es.uv.jaimediazgonzalez.facilquedar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "952434032445-lh41uau22okeoai46tcio5ruclh5m984.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "es.uv.jaimediazgonzalez.facilquedar",
+            "certificate_hash": "2d0b70a3459f3774c9119a1d3cb1c5d06b5681be"
+          }
+        },
+        {
+          "client_id": "952434032445-9e4n2s3gjj4bftfe09m1gg7fstceh0fr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlTJqJxXli38Ly2xM761i408aYm7RT6Nc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "952434032445-9e4n2s3gjj4bftfe09m1gg7fstceh0fr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
