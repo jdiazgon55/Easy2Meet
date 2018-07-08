@@ -50,4 +50,9 @@ public class PantallaInicial extends AppCompatActivity {
             startActivity(explicit_intent);
         }
     };
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

@@ -1,12 +1,14 @@
 package es.uv.jaimediazgonzalez.facilquedar;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.widget.Button;
@@ -19,18 +21,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.prolificinteractive.materialcalendarview.CalendarDay;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Created by Familia Diaz on 25/12/2017.
  */
 
 public class VerCalendario extends AppCompatActivity {
-    private Button aceptar;
+    private Button guardar;
     private EditText codigo, nombreUsuario;
     private FirebaseDatabase database;
     private DatabaseReference usersDataReference;
@@ -46,21 +45,21 @@ public class VerCalendario extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ver_calendario);
 
-        aceptar = (Button) findViewById(R.id.listoCodigoVer);
+        guardar = (Button) findViewById(R.id.listoCodigoVer);
         codigo = (EditText) findViewById(R.id.codigoVer);
         nombreUsuario = (EditText) findViewById(R.id.nombreVer);
 
         codigo.addTextChangedListener(textWatcher);
         nombreUsuario.addTextChangedListener(textWatcher);
         /* LISTENERS */
-        aceptar.setOnClickListener(volverMenuPrincipalListener);
+        guardar.setOnClickListener(verCalendario);
 
-        aceptar.setEnabled(false);
-        aceptar.setBackgroundColor(Color.parseColor("#D3D3D3"));
+        guardar.setEnabled(false);
+        guardar.setBackgroundColor(Color.parseColor("#D3D3D3"));
     }
 
     /* LISTENERS */
-    final View.OnClickListener volverMenuPrincipalListener = new View.OnClickListener() {
+    final View.OnClickListener verCalendario = new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {
@@ -70,10 +69,19 @@ public class VerCalendario extends AppCompatActivity {
             progressBarHolder.setAnimation(inAnimation);
             progressBarHolder.setVisibility(View.VISIBLE);
 
-            database = FirebaseDatabase.getInstance();
-            usersDataReference = database.getReference().child(codigo.getText().toString()).child("Users");
-            usersDataReference.addValueEventListener(retrieveUsersDataListener);
-            usersDataReference.addListenerForSingleValueEvent(retrieveUsersDataListener);
+            if(isOnline()){
+                database = FirebaseDatabase.getInstance();
+                usersDataReference = database.getReference().child(codigo.getText().toString()).child("Users");
+                usersDataReference.addListenerForSingleValueEvent(retrieveUsersDataListener);
+            } else{
+                String advertenciaNoInternet = getResources().getString(R.string.advertencia_no_internet);
+                Toast.makeText(VerCalendario.this, advertenciaNoInternet,
+                        Toast.LENGTH_LONG).show();
+                outAnimation = new AlphaAnimation(1f, 0f);
+                outAnimation.setDuration(200);
+                progressBarHolder.setAnimation(outAnimation);
+                progressBarHolder.setVisibility(View.GONE);
+            }
         }
     };
 
@@ -81,34 +89,44 @@ public class VerCalendario extends AppCompatActivity {
     ValueEventListener retrieveUsersDataListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-            HashMap<String, Object> usersHashMap = (HashMap<String, Object>)dataSnapshot.getValue();
-            String nombreUsuarioString = nombreUsuario.getText().toString();
-            for (String key : usersHashMap.keySet()){
-                if(key.equals(nombreUsuarioString)){
-                    todoCorrecto = false;
-                    String advertenciaUsuario = getResources().getString(R.string.advertencia_usuario_existente);
-                    Toast.makeText(VerCalendario.this, advertenciaUsuario,
-                            Toast.LENGTH_SHORT).show();
-                    outAnimation = new AlphaAnimation(1f, 0f);
-                    outAnimation.setDuration(200);
-                    progressBarHolder.setAnimation(outAnimation);
-                    progressBarHolder.setVisibility(View.GONE);
-                    return;
+            if(dataSnapshot.hasChildren()) {
+                HashMap<String, Object> usersHashMap = (HashMap<String, Object>) dataSnapshot.getValue();
+                String nombreUsuarioString = nombreUsuario.getText().toString();
+                for (String key : usersHashMap.keySet()) {
+                    if (key.equals(nombreUsuarioString)) {
+                        todoCorrecto = false;
+                        String advertenciaUsuario = getResources().getString(R.string.advertencia_usuario_existente);
+                        Toast.makeText(VerCalendario.this, advertenciaUsuario,
+                                Toast.LENGTH_SHORT).show();
+                        outAnimation = new AlphaAnimation(1f, 0f);
+                        outAnimation.setDuration(200);
+                        progressBarHolder.setAnimation(outAnimation);
+                        progressBarHolder.setVisibility(View.GONE);
+                        return;
+                    }
                 }
-            }
-            todoCorrecto = true;
-            outAnimation = new AlphaAnimation(1f, 0f);
-            outAnimation.setDuration(200);
-            progressBarHolder.setAnimation(outAnimation);
-            progressBarHolder.setVisibility(View.GONE);
-            if(todoCorrecto) {
-                //Declaro el Intent
-                Intent explicit_intent;
-                //Instanciamos el Intent dandole:
-                explicit_intent = new Intent(VerCalendario.this, CalendarioRecibido.class);
-                explicit_intent.putExtra("codigoUnico", codigo.getText().toString());
-                explicit_intent.putExtra("nombreUsuario", nombreUsuarioString);
-                startActivity(explicit_intent);
+                todoCorrecto = true;
+                outAnimation = new AlphaAnimation(1f, 0f);
+                outAnimation.setDuration(200);
+                progressBarHolder.setAnimation(outAnimation);
+                progressBarHolder.setVisibility(View.GONE);
+                if (todoCorrecto) {
+                    //Declaro el Intent
+                    Intent explicit_intent;
+                    //Instanciamos el Intent dandole:
+                    explicit_intent = new Intent(VerCalendario.this, CalendarioRecibido.class);
+                    explicit_intent.putExtra("codigoUnico", codigo.getText().toString());
+                    explicit_intent.putExtra("nombreUsuario", nombreUsuarioString);
+                    startActivity(explicit_intent);
+                }
+            } else{
+                String advertenciaNoCalendario = getResources().getString(R.string.advertencia_no_calendario);
+                Toast.makeText(VerCalendario.this, advertenciaNoCalendario,
+                        Toast.LENGTH_LONG).show();
+                outAnimation = new AlphaAnimation(1f, 0f);
+                outAnimation.setDuration(200);
+                progressBarHolder.setAnimation(outAnimation);
+                progressBarHolder.setVisibility(View.GONE);
             }
         }
 
@@ -144,11 +162,22 @@ public class VerCalendario extends AppCompatActivity {
         String codigoString = codigo.getText().toString();
         String nombreUsuarioString = nombreUsuario.getText().toString();
 
-        if(!codigoString.equals("")&&!nombreUsuarioString.isEmpty())
+        if(!codigoString.equals("")&&!nombreUsuarioString.equals(""))
         {
-            aceptar.setEnabled(true);
-            aceptar.setBackgroundColor(Color.parseColor("#0D98FF"));
+            guardar.setEnabled(true);
+            guardar.setBackgroundColor(Color.parseColor("#0D98FF"));
+        }
+        else{
+            guardar.setEnabled(false);
+            guardar.setBackgroundColor(Color.parseColor("#D3D3D3"));
         }
 
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 }

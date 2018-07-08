@@ -1,15 +1,16 @@
 package es.uv.jaimediazgonzalez.facilquedar;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,15 +47,10 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
     private FirebaseDatabase database;
     private DatabaseReference usersDataReference, propiedadesCalendarioReference;
 
-    AlphaAnimation inAnimation;
-    AlphaAnimation outAnimation;
-
-    FrameLayout progressBarHolder;
-
     private Button guardar;
     private TextView nombreCalendario;
     private Date fechaDesde, fechaHasta;
-    private String horaInicial, horaFinal, fechaDesdeString, fechaHastaString, codigoUnico,
+    private String codigoUnico,
             nombreUsuario;
     private ArrayList<String> listaHorasSeleccionadas;
     private final ArrayList<String> listaHoras = new ArrayList<String>(
@@ -86,13 +82,7 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
 
         guardar = (Button) findViewById(R.id.guardarCalendario);
 
-        guardar.setOnClickListener(calendarioCreadoListener);
-
-        progressBarHolder = (FrameLayout) findViewById(R.id.progressBarHolder);
-        inAnimation = new AlphaAnimation(0f, 1f);
-        inAnimation.setDuration(200);
-        progressBarHolder.setAnimation(inAnimation);
-        progressBarHolder.setVisibility(View.VISIBLE);
+        guardar.setOnClickListener(guardarDatosCalendario);
 
         database = FirebaseDatabase.getInstance();
 
@@ -133,7 +123,7 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
             Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
             Toast.makeText(CalendarioRecibido.this, "Fallo al descargar el calendario.\n " +
                             "¿Estás conectado a internet?.",
-                    Toast.LENGTH_SHORT).show();
+                    Toast.LENGTH_LONG).show();
         }
     };
 
@@ -158,14 +148,9 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
                     .setMaximumDate(CalendarDay.from(fechaHasta))
                     .commit();
 
-            outAnimation = new AlphaAnimation(1f, 0f);
-            outAnimation.setDuration(200);
-            progressBarHolder.setAnimation(outAnimation);
-            progressBarHolder.setVisibility(View.GONE);
-
             String advertenciaElegirDia = getResources().getString(R.string.advertencia_elegir_dia);
             Toast.makeText(CalendarioRecibido.this, advertenciaElegirDia,
-                    Toast.LENGTH_SHORT).show();
+                    Toast.LENGTH_LONG).show();
 
             Log.d(TAG, "Value is: " + propiedadesCalendarioHashMap.toString());
         }
@@ -195,26 +180,33 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
 
 
     /* LISTENERS */
-    final View.OnClickListener calendarioCreadoListener = new View.OnClickListener() {
+    final View.OnClickListener guardarDatosCalendario = new View.OnClickListener() {
 
         @Override
         public void onClick(View v) {
             //Declaro el Intent
             Intent explicit_intent;
             //Instanciamos el Intent dandole:
-            explicit_intent = new Intent(CalendarioRecibido.this, PantallaInicial.class);
+            explicit_intent = new Intent(CalendarioRecibido.this, VerResultados.class);
 
-            List<CalendarDay> diasSeleccionados = calendario.getSelectedDates();
-            ArrayList<String> dias = new ArrayList<String>();
-            SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-            for (CalendarDay dia: diasSeleccionados) {
-                String fecha = dia.getDay() + "/" + dia.getMonth() + "/" + dia.getYear();
-                dias.add(fecha);
+            if (isOnline()) {
+                List<CalendarDay> diasSeleccionados = calendario.getSelectedDates();
+                ArrayList<String> dias = new ArrayList<String>();
+                for (CalendarDay dia : diasSeleccionados) {
+                    String fecha = dia.getDay() + "/" + dia.getMonth() + "/" + dia.getYear();
+                    dias.add(fecha);
+                }
+                explicit_intent.putStringArrayListExtra("diasSeleccionados", dias);
+                explicit_intent.putExtra("nombreUsuario", nombreUsuario);
+                explicit_intent.putExtra("codigoUnico", codigoUnico);
+                //explicit_intent.putStringArrayListExtra("horasSeleccionadas", listaHorasSeleccionadas);
+
+                startActivity(explicit_intent);
+            }else {
+                String advertenciaNoInternet = getResources().getString(R.string.advertencia_no_internet);
+                Toast.makeText(CalendarioRecibido.this, advertenciaNoInternet,
+                        Toast.LENGTH_LONG).show();
             }
-            explicit_intent.putStringArrayListExtra("diasSeleccionados", dias);
-            //explicit_intent.putStringArrayListExtra("horasSeleccionadas", listaHorasSeleccionadas);
-
-            startActivity(explicit_intent);
         }
     };
 
@@ -238,5 +230,12 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
 
     public void setCurrentSelectedDate(CalendarDay day){
         this.currentSelectedDate = day;
+    }
+
+    public boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 }
