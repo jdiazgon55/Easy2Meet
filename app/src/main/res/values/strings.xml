@@ -53,6 +53,7 @@
         <item>Por meses (no disponible)</item>
     </string-array>
     <string name="string_spinner_horas_calendario">Elige horario</string>
+    <string name="dias_comunes_vacios">No hay días comunes...</string>
     <string-array name="horas_calendario">
         <item>00:00</item>
         <item>01:00</item>

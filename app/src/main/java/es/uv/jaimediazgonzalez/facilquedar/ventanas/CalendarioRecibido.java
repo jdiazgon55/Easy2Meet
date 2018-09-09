@@ -1,4 +1,4 @@
-package es.uv.jaimediazgonzalez.facilquedar;
+package es.uv.jaimediazgonzalez.facilquedar.ventanas;
 
 import android.content.Context;
 import android.content.Intent;
@@ -31,6 +31,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import es.uv.jaimediazgonzalez.facilquedar.CalendarioObjeto;
+import es.uv.jaimediazgonzalez.facilquedar.EventDecorator;
+import es.uv.jaimediazgonzalez.facilquedar.R;
+
 /**
  * Created by Familia Diaz on 02/07/2017.
  */
@@ -41,7 +45,7 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
     private static final String TAG = "CalendarioRecibido";
 
     private MaterialCalendarView calendario;
-    private EventDecorator eventDecorator;
+    private EventDecorator eventDecoratorComunes, eventDecoratorSeleccionados;
     private CalendarDay currentSelectedDate = new CalendarDay();
 
     private FirebaseDatabase database;
@@ -52,6 +56,8 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
     private Date fechaDesde, fechaHasta;
     private String codigoUnico,
             nombreUsuario;
+    private ArrayList<String> diasComunesTemp;
+    private ArrayList<String> diasNoBorrar;
     private ArrayList<String> listaHorasSeleccionadas;
     private final ArrayList<String> listaHoras = new ArrayList<String>(
             Arrays.asList("00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00"
@@ -101,19 +107,21 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
             // Get Post object and use the values to update the UI
             HashMap<String, Object> usersHashMap = (HashMap<String, Object>)dataSnapshot.getValue();
             List<CalendarDay> diasSeleccionados = new ArrayList<CalendarDay>();
+            List<CalendarDay> diasComunes = new ArrayList<CalendarDay>();
+            diasComunesTemp = new ArrayList<String>();
+
+            leerDiasComunes(usersHashMap);
             for (String key : usersHashMap.keySet()){
                 ArrayList<String> selectedDates = (ArrayList<String>)usersHashMap.get(key);
-                for (String value : selectedDates){
-                    String[] split = value.split("/");
-                    Integer day = Integer.parseInt(split[0]);
-                    Integer month = Integer.parseInt(split[1]);
-                    Integer year = Integer.parseInt(split[2]);
-                    CalendarDay tmpCalendarDay = CalendarDay.from(year, month, day);
-                    diasSeleccionados.add(tmpCalendarDay);
-                }
+                convertirStringToCalendarDay(diasSeleccionados, selectedDates);
             }
-            eventDecorator = new EventDecorator(Color.rgb(13, 255, 92), diasSeleccionados);
-            calendario.addDecorator(eventDecorator);
+
+            convertirStringToCalendarDay(diasComunes, diasComunesTemp);
+            eventDecoratorSeleccionados = new EventDecorator(Color.rgb(250, 210, 1), diasSeleccionados);
+            eventDecoratorComunes = new EventDecorator(Color.rgb(13, 255, 92), diasComunes);
+
+            calendario.addDecorator(eventDecoratorSeleccionados);
+            calendario.addDecorator(eventDecoratorComunes);
             Log.d(TAG, "Value is: " + usersHashMap.toString());
         }
 
@@ -126,6 +134,17 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
                     Toast.LENGTH_LONG).show();
         }
     };
+
+    private void convertirStringToCalendarDay(List<CalendarDay> diasSeleccionados, ArrayList<String> selectedDates) {
+        for (String value : selectedDates){
+            String[] split = value.split("/");
+            Integer day = Integer.parseInt(split[0]);
+            Integer month = Integer.parseInt(split[1]);
+            Integer year = Integer.parseInt(split[2]);
+            CalendarDay tmpCalendarDay = CalendarDay.from(year, month, day);
+            diasSeleccionados.add(tmpCalendarDay);
+        }
+    }
 
     ValueEventListener retrievePropiedadesCalendarioDataListener = new ValueEventListener() {
         @Override
@@ -191,6 +210,8 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
 
             if (isOnline()) {
                 List<CalendarDay> diasSeleccionados = calendario.getSelectedDates();
+                diasSeleccionados = ordenarDias(diasSeleccionados);
+
                 ArrayList<String> dias = new ArrayList<String>();
                 for (CalendarDay dia : diasSeleccionados) {
                     String fecha = dia.getDay() + "/" + dia.getMonth() + "/" + dia.getYear();
@@ -209,6 +230,57 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
             }
         }
     };
+
+    private void leerDiasComunes(HashMap<String, Object> usersHashMap) {
+        int bandera = 0;
+        for (String key : usersHashMap.keySet()){
+            diasNoBorrar = new ArrayList<String>();
+            ArrayList<String> selectedDates = (ArrayList<String>)usersHashMap.get(key);
+            bandera++;
+            for (String value : selectedDates){
+                if(bandera != 1) {
+                    comprobarDia(value);
+                } else{
+                    diasComunesTemp.add(value);
+                }
+            }
+            if (bandera != 1){
+                diasComunesTemp = diasNoBorrar;
+            }
+        }
+    }
+
+    private Boolean comprobarDia(String value) {
+
+        for(String diaComun : diasComunesTemp){
+            if(diaComun.equals(value)){
+                diasNoBorrar.add(value);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private List<CalendarDay> ordenarDias(List<CalendarDay> diasSeleccionados){
+
+        CalendarDay temp;
+        List<CalendarDay> listaDiasTemp = new ArrayList<CalendarDay>();
+        for (CalendarDay diaTemp : diasSeleccionados){
+            listaDiasTemp.add(diaTemp);
+        }
+        for (int i = 1; i < listaDiasTemp.size(); i++) {
+            for(int j = i ; j > 0 ; j--){
+                if(listaDiasTemp.get(j).isBefore(listaDiasTemp.get(j-1))){
+                    temp = listaDiasTemp.get(j);
+                    listaDiasTemp.remove(j);
+                    listaDiasTemp.add(j, listaDiasTemp.get(j-1));
+                    listaDiasTemp.remove(j-1);
+                    listaDiasTemp.add(j-1, temp);
+                }
+            }
+        }
+        return listaDiasTemp;
+    }
 
     private String getFirstTwoCharacters(String time){
         return time.substring(0,2);

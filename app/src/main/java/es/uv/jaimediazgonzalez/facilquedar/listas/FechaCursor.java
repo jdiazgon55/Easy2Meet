@@ -1,4 +1,4 @@
-package es.uv.jaimediazgonzalez.facilquedar;
+package es.uv.jaimediazgonzalez.facilquedar.listas;
 
 import android.os.Parcel;
 import android.os.Parcelable;

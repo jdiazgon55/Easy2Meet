@@ -1,4 +1,4 @@
-package es.uv.jaimediazgonzalez.facilquedar;
+package es.uv.jaimediazgonzalez.facilquedar.ventanas;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +23,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
+
+import es.uv.jaimediazgonzalez.facilquedar.R;
 
 /**
  * Created by Familia Diaz on 25/12/2017.

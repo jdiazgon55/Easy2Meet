@@ -1,4 +1,4 @@
-package es.uv.jaimediazgonzalez.facilquedar;
+package es.uv.jaimediazgonzalez.facilquedar.ventanas;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -13,11 +13,11 @@ import android.widget.Toast;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.UUID;
+
+import es.uv.jaimediazgonzalez.facilquedar.CalendarioObjeto;
+import es.uv.jaimediazgonzalez.facilquedar.R;
 
 /**
  * Created by Familia Diaz on 24/12/2017.
@@ -60,6 +60,7 @@ public class CalendarioCreado extends AppCompatActivity {
 
         DatabaseReference users = myRef.child("Users");
         DatabaseReference admin = users.child("Admin");
+
         admin.setValue(diasSeleccionados);
 
         /* LISTENERS */
@@ -67,6 +68,7 @@ public class CalendarioCreado extends AppCompatActivity {
         aceptar.setOnClickListener(volverMenuPrincipalListener);
 
     }
+
 
     /* LISTENERS */
     final View.OnClickListener copiarPortapapeles = new View.OnClickListener() {

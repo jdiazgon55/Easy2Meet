@@ -1,4 +1,4 @@
-package es.uv.jaimediazgonzalez.facilquedar;
+package es.uv.jaimediazgonzalez.facilquedar.ventanas;
 
 import android.content.Context;
 import android.content.Intent;
@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+
+import es.uv.jaimediazgonzalez.facilquedar.R;
 
 /**
  * Created by Familia Diaz on 02/07/2017.
@@ -151,6 +153,8 @@ public class Calendario extends AppCompatActivity implements OnDateSelectedListe
 
                 List<CalendarDay> diasSeleccionados = calendario.getSelectedDates();
                 ArrayList<String> dias = new ArrayList<String>();
+                diasSeleccionados = ordenarDias(diasSeleccionados);
+
                 for (CalendarDay dia : diasSeleccionados) {
                     String fecha = dia.getDay() + "/" + dia.getMonth() + "/" + dia.getYear();
                     dias.add(fecha);
@@ -169,6 +173,30 @@ public class Calendario extends AppCompatActivity implements OnDateSelectedListe
             }
         }
     };
+
+
+    private List<CalendarDay> ordenarDias(List<CalendarDay> diasSeleccionados){
+
+        CalendarDay temp;
+        List<CalendarDay> listaDiasTemp = new ArrayList<CalendarDay>();
+        for (CalendarDay diaTemp : diasSeleccionados){
+            listaDiasTemp.add(diaTemp);
+        }
+        for (int i = 1; i < listaDiasTemp.size(); i++) {
+            for(int j = i ; j > 0 ; j--){
+                if(listaDiasTemp.get(j).isBefore(listaDiasTemp.get(j-1))){
+                    temp = listaDiasTemp.get(j);
+                    listaDiasTemp.remove(j);
+                    listaDiasTemp.add(j, listaDiasTemp.get(j-1));
+                    listaDiasTemp.remove(j-1);
+                    listaDiasTemp.add(j-1, temp);
+                }
+            }
+        }
+        return listaDiasTemp;
+    }
+
+
 
     private String getFirstTwoCharacters(String time){
         return time.substring(0,2);

@@ -1,10 +1,13 @@
-package es.uv.jaimediazgonzalez.facilquedar;
+package es.uv.jaimediazgonzalez.facilquedar.ventanas;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import es.uv.jaimediazgonzalez.facilquedar.R;
 
 public class PantallaInicial extends AppCompatActivity {
 
@@ -19,6 +22,11 @@ public class PantallaInicial extends AppCompatActivity {
         verCalendario = (Button) findViewById(R.id.verCalendario);
         misCalendarios = (Button) findViewById(R.id.misCalendarios);
         instrucciones = (Button) findViewById(R.id.instrucciones);
+
+        misCalendarios.setEnabled(false);
+        misCalendarios.setBackgroundColor(Color.parseColor("#D3D3D3"));
+        instrucciones.setEnabled(false);
+        instrucciones.setBackgroundColor(Color.parseColor("#D3D3D3"));
 
         /* LISTENERS */
         crearCalendario.setOnClickListener(crearCalendarioListener);

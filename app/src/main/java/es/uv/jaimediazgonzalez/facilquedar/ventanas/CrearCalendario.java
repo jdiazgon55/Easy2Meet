@@ -1,4 +1,4 @@
-package es.uv.jaimediazgonzalez.facilquedar;
+package es.uv.jaimediazgonzalez.facilquedar.ventanas;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,8 +9,10 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.GridLayout;
 import android.widget.Spinner;
+
+import es.uv.jaimediazgonzalez.facilquedar.DateDialog;
+import es.uv.jaimediazgonzalez.facilquedar.R;
 
 /**
  * Created by Familia Diaz on 27/06/2017.

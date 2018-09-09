@@ -1,4 +1,4 @@
-package es.uv.jaimediazgonzalez.facilquedar;
+package es.uv.jaimediazgonzalez.facilquedar.listas;
 
 import android.app.Service;
 import android.content.Context;
@@ -9,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import es.uv.jaimediazgonzalez.facilquedar.R;
 
 public class DiasComunesAdapter extends BaseAdapter {
     private ArrayList<FechaCursor> arrayDiasComunes;
