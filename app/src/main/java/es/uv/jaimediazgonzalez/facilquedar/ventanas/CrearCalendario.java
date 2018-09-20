@@ -20,7 +20,7 @@ import es.uv.jaimediazgonzalez.facilquedar.R;
 
 public class CrearCalendario  extends AppCompatActivity {
     private Button listo;
-    private EditText nombreCalendario, fechaDesde, fechaHasta;
+    private EditText nombreCalendario, fechaDesde, fechaHasta, apodoUsuario;
     private Spinner horaInicial, horaFinal;
 
     @Override
@@ -46,6 +46,8 @@ public class CrearCalendario  extends AppCompatActivity {
         nombreCalendario = (EditText) findViewById(R.id.nombreCalendario);
         fechaDesde = (EditText) findViewById(R.id.desdeFechaPicker);
         fechaHasta = (EditText) findViewById(R.id.hastaFechaPicker);
+
+        apodoUsuario = (EditText) findViewById(R.id.nombreAdmin);
 
         /* LISTENERS */
         listo.setOnClickListener(listoCalendarioListener);
@@ -78,6 +80,7 @@ public class CrearCalendario  extends AppCompatActivity {
             explicit_intent.putExtra("nombreCalendario", nombreCalendario.getText().toString());
             explicit_intent.putExtra("fechaDesde", fechaDesde.getText().toString());
             explicit_intent.putExtra("fechaHasta", fechaHasta.getText().toString());
+            explicit_intent.putExtra("apodoUsuario", apodoUsuario.getText().toString());
             explicit_intent.putExtra("horaInicial", horaInicial.getSelectedItem().toString());
             explicit_intent.putExtra("horaFinal", horaFinal.getSelectedItem().toString());
 

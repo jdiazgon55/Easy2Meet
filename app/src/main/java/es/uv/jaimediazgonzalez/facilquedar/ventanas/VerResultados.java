@@ -2,13 +2,17 @@ package es.uv.jaimediazgonzalez.facilquedar.ventanas;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,6 +24,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,6 +34,7 @@ import java.util.List;
 import es.uv.jaimediazgonzalez.facilquedar.listas.DiasComunesAdapter;
 import es.uv.jaimediazgonzalez.facilquedar.listas.FechaCursor;
 import es.uv.jaimediazgonzalez.facilquedar.R;
+import es.uv.jaimediazgonzalez.facilquedar.listas.ListaUtil;
 
 public class VerResultados extends AppCompatActivity {
     private static final String TAG = "VerResultados";
@@ -73,7 +81,7 @@ public class VerResultados extends AppCompatActivity {
         users.addValueEventListener(retrieveUsersDataListener);
 
         comunesList = (ListView) findViewById(R.id.listcomunesview);
-        this.setDynamicHeight(comunesList);
+
         comunesList.setEmptyView(findViewById(R.id.emptyElement));
 
         layout = (RelativeLayout) findViewById(R.id.relative_layout);
@@ -92,11 +100,12 @@ public class VerResultados extends AppCompatActivity {
             diasComunesArray = new ArrayList<FechaCursor>();
 
             leerDiasComunes(usersHashMap);
-            guardarEnAdapter(diasComunesTemp);
-            crearListaDiasUsuario(usersHashMap);
+            diasComunesArray = guardarEnAdapter(diasComunesTemp);
+            crearListView(usersHashMap);
 
             diasComunesAdapter = new DiasComunesAdapter(context, diasComunesArray);
             comunesList.setAdapter(diasComunesAdapter);
+            ListaUtil.setListViewHeightBasedOnChildren(comunesList);
             Log.d(TAG, "Value is: " + usersHashMap.toString());
         }
 
@@ -129,38 +138,87 @@ public class VerResultados extends AppCompatActivity {
         }
     }
 
-    private void crearListaDiasUsuario(HashMap<String, Object> usersHashMap) {
+    private void crearListView(HashMap<String, Object> usersHashMap) {
         TextView anteriorUsuarioNombre = new TextView(this);
         TextView usuarioNombre;
 
         int bandera = 55;
         for (String key : usersHashMap.keySet()){
             usuarioNombre = new TextView(this);
-            usuarioNombre.setText(key);
+            usuarioNombre.setText(key + " :");
+            usuarioNombre.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+            usuarioNombre.setTextColor(Color.parseColor("#FF4081"));
+
+
             // Poner el textView debajo de otro
             RelativeLayout.LayoutParams p = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
                     RelativeLayout.LayoutParams.WRAP_CONTENT);
             if (bandera == 55){
-                anteriorUsuarioNombre.setText(key);
+                anteriorUsuarioNombre.setText(key + " :");
+                anteriorUsuarioNombre.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+                anteriorUsuarioNombre.setTextColor(Color.parseColor("#FF4081"));
+
                 p.addRule(RelativeLayout.BELOW, R.id.listcomunesview);
+
+                int dp = (int) (16 * Resources.getSystem().getDisplayMetrics().density);
+                p.setMargins(0, dp, 0, dp);
                 anteriorUsuarioNombre.setLayoutParams(p);
                 anteriorUsuarioNombre.setId(bandera);
                 layout.addView(anteriorUsuarioNombre);
 
+                bandera = crearListView(usersHashMap, key, anteriorUsuarioNombre, bandera);
+                // Hemos creado una nueva lista con id bandera
+
             } else{
-                p.addRule(RelativeLayout.BELOW, anteriorUsuarioNombre.getId());
+                p.addRule(RelativeLayout.BELOW, bandera);
+                int dp = (int) (16 * Resources.getSystem().getDisplayMetrics().density);
+                p.setMargins(0, dp, 0, dp);
+
+                bandera++;
                 usuarioNombre.setLayoutParams(p);
                 layout.addView(usuarioNombre);
                 anteriorUsuarioNombre = usuarioNombre;
                 anteriorUsuarioNombre.setId(bandera);
-            }
 
-            bandera++;
+                bandera = crearListView(usersHashMap, key, usuarioNombre, bandera);
+            }
         }
     }
 
-    private void guardarEnAdapter(List<String> diasComunesTemp) {
-        for(String diaComun : this.diasComunesTemp){
+    private int crearListView(HashMap<String, Object> usersHashMap, String key, TextView textView,
+                               int bandera) {
+
+        RelativeLayout.LayoutParams paramsList = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+        ArrayList<FechaCursor> diasUsuarioCursor = new ArrayList<FechaCursor>();
+        diasUsuarioCursor = guardarEnAdapter((ArrayList<String>)usersHashMap.get(key));
+        DiasComunesAdapter diasUsuarioAdapter = new DiasComunesAdapter(context, diasUsuarioCursor);
+        ListView listaUsuario = new ListView(this);
+
+        listaUsuario.setAdapter(diasUsuarioAdapter);
+        paramsList.addRule(RelativeLayout.BELOW, bandera);
+        listaUsuario.setLayoutParams(paramsList);
+
+        Drawable divider = getResources().getDrawable(R.drawable.divider);
+        listaUsuario.setDivider(divider);
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        int dp = (int) (16 * Resources.getSystem().getDisplayMetrics().density);
+        listaUsuario.setDividerHeight(dp);
+
+        bandera++;
+        listaUsuario.setId(bandera);
+
+        layout.addView(listaUsuario);
+        ListaUtil.setListViewHeightBasedOnChildren(listaUsuario);
+
+        return bandera;
+    }
+
+    private ArrayList<FechaCursor> guardarEnAdapter(List<String> diasComunesTemp) {
+        ArrayList<FechaCursor> diasCursorTemp = new ArrayList<FechaCursor>();
+
+        for(String diaComun : diasComunesTemp){
             String[] split = diaComun.split("/");
 
             Integer day = Integer.parseInt(split[0]);
@@ -170,8 +228,9 @@ public class VerResultados extends AppCompatActivity {
             String stringMonth = monthToString(month);
             FechaCursor tmpFecha = new FechaCursor(day, stringMonth, year);
 
-            diasComunesArray.add(tmpFecha);
+            diasCursorTemp.add(tmpFecha);
         }
+        return diasCursorTemp;
     }
 
     private Boolean comprobarDia(String value) {
@@ -203,30 +262,6 @@ public class VerResultados extends AppCompatActivity {
                 Log.e("", "No existe dicho mes");
                 return "error";
         }
-    }
-
-    /**
-     * Set listview height based on listview children
-     *
-     * @param listView
-     */
-    public static void setDynamicHeight(ListView listView) {
-        ListAdapter adapter = listView.getAdapter();
-        //check adapter if null
-        if (adapter == null) {
-            return;
-        }
-        int height = 0;
-        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
-        for (int i = 0; i < adapter.getCount(); i++) {
-            View listItem = adapter.getView(i, null, listView);
-            listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-            height += listItem.getMeasuredHeight();
-        }
-        ViewGroup.LayoutParams layoutParams = listView.getLayoutParams();
-        layoutParams.height = height + (listView.getDividerHeight() * (adapter.getCount() - 1));
-        listView.setLayoutParams(layoutParams);
-        listView.requestLayout();
     }
 
     /* LISTENERS */

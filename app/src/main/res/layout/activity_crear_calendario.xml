@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="25dp"
@@ -13,20 +14,20 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="25dp"
-        android:maxLines="1"
+        android:hint="@string/set_nombre_calendario"
         android:inputType="text"
-        android:hint="@string/set_nombre_calendario" />
+        android:maxLines="1" />
 
     <TextView
         android:id="@+id/text_view_nombre"
         android:layout_width="0dp"
-        android:textStyle="bold"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_marginTop="9dp"
         android:layout_toLeftOf="@+id/nombreCalendario"
         android:text="@string/nombre_calendario_textView"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <Spinner
         android:id="@+id/spinnerTipoCalendario"
@@ -36,18 +37,19 @@
         android:layout_below="@id/nombreCalendario"
         android:layout_marginBottom="25dp"
         android:entries="@array/tipo_calendario"
-        android:prompt="@string/string_spinner_tipo_calendario" />
+        android:prompt="@string/string_spinner_tipo_calendario"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/text_view_horario"
         android:layout_width="0dp"
-        android:textStyle="bold"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/nombreCalendario"
         android:layout_toLeftOf="@+id/spinnerTipoCalendario"
         android:text="@string/horario_textView"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/desdeFechaPicker"
@@ -62,14 +64,14 @@
     <TextView
         android:id="@+id/text_view_hasta"
         android:layout_width="0dp"
-        android:textStyle="bold"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/spinnerTipoCalendario"
         android:layout_marginTop="9dp"
         android:layout_toLeftOf="@+id/nombreCalendario"
         android:text="@string/desde_textView"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <EditText
         android:id="@+id/hastaFechaPicker"
@@ -84,14 +86,14 @@
     <TextView
         android:id="@+id/text_view_desde"
         android:layout_width="0dp"
-        android:textStyle="bold"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/desdeFechaPicker"
         android:layout_marginTop="9dp"
-        android:layout_toLeftOf="@+id/nombreCalendario"
+        android:layout_toLeftOf="@+id/hastaFechaPicker"
         android:text="@string/hasta_textView"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <Spinner
         android:id="@+id/spinnerHoraCalendarioInicial"
@@ -99,9 +101,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@id/hastaFechaPicker"
-        android:layout_marginBottom="55dp"
+        android:layout_marginBottom="0dp"
         android:entries="@array/horas_calendario"
-        android:prompt="@string/string_spinner_horas_calendario" />
+        android:prompt="@string/string_spinner_horas_calendario"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/text_view_hora_inicial"
@@ -114,15 +117,39 @@
         android:text="@string/hora_inicial_textView"
         android:textSize="20sp" />
 
+    <TextView
+        android:id="@+id/text_view_apodo_usuario"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@id/hastaFechaPicker"
+        android:layout_marginBottom="50dp"
+        android:layout_toLeftOf="@+id/nombreAdmin"
+        android:text="@string/nombre_usuario_edit_text"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/nombreAdmin"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/text_view_hora_inicial"
+        android:layout_alignStart="@+id/nombreCalendario"
+        android:layout_alignLeft="@+id/nombreCalendario"
+        android:hint="@string/set_apodo_calendario"
+        android:inputType="text"
+        android:maxLines="1" />
+
     <Spinner
         android:id="@+id/spinnerHoraCalendarioFinal"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@id/spinnerHoraCalendarioInicial"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="0dp"
         android:entries="@array/horas_calendario"
-        android:prompt="@string/string_spinner_horas_calendario" />
+        android:prompt="@string/string_spinner_horas_calendario"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/text_view_hora_final"

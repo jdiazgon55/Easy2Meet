@@ -37,7 +37,8 @@ public class Calendario extends AppCompatActivity implements OnDateSelectedListe
     private Button guardar;
     private CalendarDay currentSelectedDate = new CalendarDay();
     private Date fechaDesde, fechaHasta;
-    private String horaInicial, horaFinal, nombreCalendario, fechaDesdeString, fechaHastaString;
+    private String horaInicial, horaFinal, nombreCalendario, fechaDesdeString, fechaHastaString,
+    apodoUsuario;
     private ArrayList<String> listaHorasSeleccionadas;
     private final ArrayList<String> listaHoras = new ArrayList<String>(
             Arrays.asList("00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00"
@@ -54,6 +55,7 @@ public class Calendario extends AppCompatActivity implements OnDateSelectedListe
         fechaDesdeString = getIntent().getStringExtra("fechaDesde");
         fechaHastaString = getIntent().getStringExtra("fechaHasta");
         nombreCalendario = getIntent().getStringExtra("nombreCalendario");
+        apodoUsuario = getIntent().getStringExtra("apodoUsuario");
         horaInicial = getIntent().getStringExtra("horaInicial");
         horaFinal = getIntent().getStringExtra("horaFinal");
 
@@ -163,6 +165,7 @@ public class Calendario extends AppCompatActivity implements OnDateSelectedListe
                 explicit_intent.putExtra("nombreCalendario", nombreCalendario);
                 explicit_intent.putExtra("fechaDesde", fechaDesdeString);
                 explicit_intent.putExtra("fechaHasta", fechaHastaString);
+                explicit_intent.putExtra("apodoUsuario", apodoUsuario);
                 //explicit_intent.putStringArrayListExtra("horasSeleccionadas", listaHorasSeleccionadas);
 
                 startActivity(explicit_intent);

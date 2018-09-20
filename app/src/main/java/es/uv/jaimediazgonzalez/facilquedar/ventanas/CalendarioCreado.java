@@ -29,7 +29,7 @@ public class CalendarioCreado extends AppCompatActivity {
     private EditText codigo;
     private ArrayList<String> horasSeleccionadas;
     private ArrayList<String> diasSeleccionados;
-    private String fechaDesdeString, fechaHastaString, nombreCalendario;
+    private String fechaDesdeString, fechaHastaString, nombreCalendario, apodoUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +45,7 @@ public class CalendarioCreado extends AppCompatActivity {
         fechaDesdeString = getIntent().getStringExtra("fechaDesde");
         fechaHastaString = getIntent().getStringExtra("fechaHasta");
         nombreCalendario = getIntent().getStringExtra("nombreCalendario");
+        apodoUsuario = getIntent().getStringExtra("apodoUsuario");
         diasSeleccionados = getIntent().getStringArrayListExtra("diasSeleccionados");
 
         String codigoUnico = createUniqueId();
@@ -59,7 +60,7 @@ public class CalendarioCreado extends AppCompatActivity {
         propiedadesCalendario.setValue(calendarioObjeto);
 
         DatabaseReference users = myRef.child("Users");
-        DatabaseReference admin = users.child("Admin");
+        DatabaseReference admin = users.child(apodoUsuario);
 
         admin.setValue(diasSeleccionados);
 
