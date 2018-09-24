@@ -2,6 +2,7 @@ package es.uv.jaimediazgonzalez.facilquedar.listas;
 
 import android.app.Service;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,8 @@ import java.util.ArrayList;
 import es.uv.jaimediazgonzalez.facilquedar.R;
 
 public class DiasComunesAdapter extends BaseAdapter {
-    private ArrayList<FechaCursor> arrayDiasComunes;
+    private ArrayList<FechaCursor> arrayDiasSeleccionados;
+    private ArrayList<FechaCursor> arrayDiasComunes = new ArrayList<>();
     Context context;
 
     static class ViewHolder {
@@ -28,22 +30,22 @@ public class DiasComunesAdapter extends BaseAdapter {
     }
 
     void init(ArrayList<FechaCursor> listaDiasComunes){
-        arrayDiasComunes = listaDiasComunes;
+        arrayDiasSeleccionados = listaDiasComunes;
     }
 
     @Override
     public int getCount() {
-        return arrayDiasComunes.size();
+        return arrayDiasSeleccionados.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return arrayDiasComunes.get(position);
+        return arrayDiasSeleccionados.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return arrayDiasComunes.get(position).getDia();
+        return arrayDiasSeleccionados.get(position).getDia();
     }
 
     @Override
@@ -67,14 +69,28 @@ public class DiasComunesAdapter extends BaseAdapter {
             holder = (ViewHolder) v.getTag();
         }
         //Rellenar el holder con la información de la parada que está en la posicion position del ArrayList
-        FechaCursor fecha = arrayDiasComunes.get(position);
+        FechaCursor fecha = arrayDiasSeleccionados.get(position);
         if(fecha != null)
         {
             holder.diaText.setText(String.valueOf(fecha.getDia()));
             holder.mesText.setText(fecha.getMes());
             holder.anyoText.setText(String.valueOf(fecha.getAnyo()));
+            // Si es un dia común, lo pintamos de verde
+            if(this.arrayDiasComunes.contains(fecha)){
+                holder.diaText.setTextColor(Color.rgb(255, 86, 25));
+                holder.mesText.setTextColor(Color.rgb(255, 86, 25));
+                holder.anyoText.setTextColor(Color.rgb(255, 86, 25));
+            } else{
+                holder.diaText.setTextColor(Color.rgb(79, 178, 9));
+                holder.mesText.setTextColor(Color.rgb(79, 178, 9));
+                holder.anyoText.setTextColor(Color.rgb(79, 178, 9));
+            }
         }
         return v;
+    }
+
+    public void setDiasComunes(ArrayList<FechaCursor> dias){
+        this.arrayDiasComunes = dias;
     }
 
 

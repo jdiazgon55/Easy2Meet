@@ -52,6 +52,7 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
     private DatabaseReference usersDataReference, propiedadesCalendarioReference;
 
     private Button guardar;
+    private Boolean isFirstTime = true;
     private TextView nombreCalendario;
     private Date fechaDesde, fechaHasta;
     private String codigoUnico,
@@ -69,10 +70,12 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendario);
+        HashMap<String, Object> usersHashMap;
 
         //Recogemos los datos del Intent
         codigoUnico = getIntent().getStringExtra("codigoUnico");
         nombreUsuario = getIntent().getStringExtra("nombreUsuario");
+        usersHashMap = (HashMap<String, Object>)getIntent().getSerializableExtra("usuariosHash");
 
         nombreCalendario = (TextView) findViewById(R.id.text_view_mantener_dia);
         calendario = (MaterialCalendarView) findViewById(R.id.calendarioView);
@@ -83,6 +86,8 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
                 .setMinimumDate(CalendarDay.from(fechaDesde))
                 .setMaximumDate(CalendarDay.from(fechaHasta))
                 .commit();
+
+        this.mostrarDatosCalendario(usersHashMap);
 
         calendario.setOnDateChangedListener(this);
 
@@ -101,9 +106,34 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
                 (retrievePropiedadesCalendarioDataListener);
     }
 
+    // Recoge los datos pasados por la otra ventana y los muestra
+    private void mostrarDatosCalendario(HashMap<String, Object> usersHashMap){
+        List<CalendarDay> diasSeleccionados = new ArrayList<CalendarDay>();
+        List<CalendarDay> diasComunes = new ArrayList<CalendarDay>();
+        diasComunesTemp = new ArrayList<String>();
+
+        leerDiasComunes(usersHashMap);
+        for (String key : usersHashMap.keySet()){
+            ArrayList<String> selectedDates = (ArrayList<String>)usersHashMap.get(key);
+            convertirStringToCalendarDay(diasSeleccionados, selectedDates);
+        }
+
+        convertirStringToCalendarDay(diasComunes, diasComunesTemp);
+        eventDecoratorSeleccionados = new EventDecorator(Color.rgb(255, 86, 25), diasSeleccionados);
+        eventDecoratorComunes = new EventDecorator(Color.rgb(79, 178, 9), diasComunes);
+
+        calendario.addDecorator(eventDecoratorSeleccionados);
+        calendario.addDecorator(eventDecoratorComunes);
+        Log.d(TAG, "Value is: " + usersHashMap.toString());
+    }
+
     ValueEventListener retrieveUsersDataListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
+            if(isFirstTime){
+                isFirstTime = false;
+                return;
+            }
             // Get Post object and use the values to update the UI
             HashMap<String, Object> usersHashMap = (HashMap<String, Object>)dataSnapshot.getValue();
             List<CalendarDay> diasSeleccionados = new ArrayList<CalendarDay>();

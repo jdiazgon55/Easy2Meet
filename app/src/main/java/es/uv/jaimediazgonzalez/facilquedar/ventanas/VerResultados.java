@@ -147,7 +147,6 @@ public class VerResultados extends AppCompatActivity {
             usuarioNombre = new TextView(this);
             usuarioNombre.setText(key + " :");
             usuarioNombre.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-            usuarioNombre.setTextColor(Color.parseColor("#FF4081"));
 
 
             // Poner el textView debajo de otro
@@ -156,7 +155,6 @@ public class VerResultados extends AppCompatActivity {
             if (bandera == 55){
                 anteriorUsuarioNombre.setText(key + " :");
                 anteriorUsuarioNombre.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-                anteriorUsuarioNombre.setTextColor(Color.parseColor("#FF4081"));
 
                 p.addRule(RelativeLayout.BELOW, R.id.listcomunesview);
 
@@ -193,7 +191,9 @@ public class VerResultados extends AppCompatActivity {
 
         ArrayList<FechaCursor> diasUsuarioCursor = new ArrayList<FechaCursor>();
         diasUsuarioCursor = guardarEnAdapter((ArrayList<String>)usersHashMap.get(key));
+
         DiasComunesAdapter diasUsuarioAdapter = new DiasComunesAdapter(context, diasUsuarioCursor);
+        diasUsuarioAdapter.setDiasComunes(diasUsuarioCursor);
         ListView listaUsuario = new ListView(this);
 
         listaUsuario.setAdapter(diasUsuarioAdapter);

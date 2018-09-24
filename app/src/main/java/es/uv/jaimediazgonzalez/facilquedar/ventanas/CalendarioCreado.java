@@ -25,7 +25,8 @@ import es.uv.jaimediazgonzalez.facilquedar.R;
 
 public class CalendarioCreado extends AppCompatActivity {
 
-    private Button aceptar, copiar;
+    private Button aceptar, copiar, compartir;
+    private String codigoUnico;
     private EditText codigo;
     private ArrayList<String> horasSeleccionadas;
     private ArrayList<String> diasSeleccionados;
@@ -38,6 +39,7 @@ public class CalendarioCreado extends AppCompatActivity {
 
         aceptar = (Button) findViewById(R.id.listoCodigo);
         copiar = (Button) findViewById(R.id.copiarBoton);
+        compartir = (Button) findViewById(R.id.compartirBoton);
         codigo = (EditText) findViewById(R.id.codigo);
 
         //horasSeleccionadas = getIntent().getStringArrayListExtra("horasSeleccionadas");
@@ -48,7 +50,7 @@ public class CalendarioCreado extends AppCompatActivity {
         apodoUsuario = getIntent().getStringExtra("apodoUsuario");
         diasSeleccionados = getIntent().getStringArrayListExtra("diasSeleccionados");
 
-        String codigoUnico = createUniqueId();
+        codigoUnico = createUniqueId();
         codigo.setText(codigoUnico);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -66,6 +68,7 @@ public class CalendarioCreado extends AppCompatActivity {
 
         /* LISTENERS */
         copiar.setOnClickListener(copiarPortapapeles);
+        compartir.setOnClickListener(compartirListener);
         aceptar.setOnClickListener(volverMenuPrincipalListener);
 
     }
@@ -84,6 +87,18 @@ public class CalendarioCreado extends AppCompatActivity {
             myClipboard.setPrimaryClip(myClip);
 
             Toast.makeText(getApplicationContext(), getString(R.string.toast_copiar) ,Toast.LENGTH_SHORT).show();
+        }
+    };
+
+    final View.OnClickListener compartirListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+            sharingIntent.setType("text/plain");
+            String shareBody = codigoUnico;
+            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+            startActivity(Intent.createChooser(sharingIntent, "Share via"));
         }
     };
 

@@ -13,6 +13,7 @@
     <string name="set_hasta_fecha">DD/MM/AAAA</string>
     <string name="listo">Listo</string>
     <string name="copiar">Copiar</string>
+    <string name="compartir">Compartir</string>
     <string name="guardar">Guardar</string>
     <string name="nombre_calendario_textView">Nombre: </string>
     <string name="horario_textView">Horario: </string>
@@ -21,13 +22,13 @@
     <string name="desde_textView">Desde: </string>
     <string name="hasta_textView">Hasta: </string>
     <string name="consejo_mantener_dia">Selecciona por lo menos un día para crear el evento </string>
-    <string name="consejo_codigo_calendario">Copia y envía este código a tus amigos para que puedan utilizar el evento: </string>
+    <string name="consejo_codigo_calendario">Comparte o copia este código a tus amigos para que puedan acceder al evento: </string>
     <string name="toast_copiar">Copiado correctamente </string>
-    <string name="dias_comunes">Días comunes: </string>
+    <string name="dias_comunes">Días en común: </string>
     <string name="consejo_ver_calendario">Pega el código del evento en el siguiente campo: </string>
     <string name="nombre_ver_calendario">Introduce tu nombre en el siguiente campo: </string>
     <string name="advertencia_usuario_existente">Ya hay un usuario con ese nombre, cambia tu nombre para continuar.</string>
-    <string name="advertencia_elegir_dia">Guarda los días elegidos o mira los resultados.</string>
+    <string name="advertencia_elegir_dia">Selecciona tus días disponibles.</string>
     <string name="advertencia_no_calendario">No existe ningún evento con ese código.</string>
     <string name="advertencia_no_internet">No hay conexión a Internet, por favor conéctese e inténtelo de nuevo.</string>
     <string name="consejo_mantener_hora">Selecciona las horas y aprieta en guardar.</string>
@@ -54,7 +55,7 @@
         <item>Por meses (no disponible)</item>
     </string-array>
     <string name="string_spinner_horas_calendario">Elige horario</string>
-    <string name="dias_comunes_vacios">No hay días comunes...</string>
+    <string name="dias_comunes_vacios">No hay días en común...</string>
     <string-array name="horas_calendario">
         <item>00:00</item>
         <item>01:00</item>

@@ -119,6 +119,9 @@ public class VerCalendario extends AppCompatActivity {
                     explicit_intent = new Intent(VerCalendario.this, CalendarioRecibido.class);
                     explicit_intent.putExtra("codigoUnico", codigo.getText().toString());
                     explicit_intent.putExtra("nombreUsuario", nombreUsuarioString);
+                    explicit_intent.putExtra("nombreUsuario", nombreUsuarioString);
+                    explicit_intent.putExtra("usuariosHash", usersHashMap);
+
                     startActivity(explicit_intent);
                 }
             } else{

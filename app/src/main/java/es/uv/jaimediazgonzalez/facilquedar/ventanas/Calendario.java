@@ -84,6 +84,10 @@ public class Calendario extends AppCompatActivity implements OnDateSelectedListe
             guardar.setBackgroundColor(Color.parseColor("#D3D3D3"));
         }
         guardar.setOnClickListener(calendarioCreadoListener);
+
+        String advertenciaElegirDia = getResources().getString(R.string.advertencia_elegir_dia);
+        Toast.makeText(Calendario.this, advertenciaElegirDia,
+                Toast.LENGTH_LONG).show();
     }
 
     @Override

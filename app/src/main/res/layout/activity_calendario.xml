@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -18,6 +18,7 @@
         android:id="@+id/calendarioView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/text_view_mantener_dia"
         app:mcv_selectionColor="#0D98FF"
         app:mcv_showOtherDates="all" />
 
@@ -26,11 +27,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp"
         android:background="#0D98FF"
         android:text="@string/guardar"
         android:textColor="#FFFFFF"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"/>
 
-</LinearLayout>
+</RelativeLayout>
 
