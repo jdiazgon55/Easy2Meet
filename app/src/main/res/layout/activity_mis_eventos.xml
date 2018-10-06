@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+
+            <TextView
+                android:id="@+id/text_view_eventos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:gravity="left"
+                android:textSize="20sp"
+                android:text="@string/tus_eventos"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"/>
+
+            <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/listeventosview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@drawable/divider"
+                android:dividerHeight="16.0dp"
+                android:layout_below="@+id/text_view_eventos" />
+
+            <TextView android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/emptyElementEventos"
+                android:text="@string/sin_eventos"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:visibility="gone"
+                android:layout_marginLeft="15dp"
+                android:textColor="@android:color/darker_gray"/>
+
+</LinearLayout>

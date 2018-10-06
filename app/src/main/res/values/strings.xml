@@ -3,12 +3,12 @@
     <string name="crear_calendario">Crear evento</string>
     <string name="guardar_horas">Guardar horas</string>
     <string name="instrucciones">Instrucciones</string>
-    <string name="mis_calendarios">Mis calendarios</string>
+    <string name="mis_calendarios">Mis eventos</string>
     <string name="ver_calendario">Ver evento</string>
     <string name="set_nombre_calendario">Nombre del evento</string>
     <string name="set_apodo_calendario">Ponte un apodo</string>
     <string name="codigo_calendario_edit_text">Código del evento</string>
-    <string name="nombre_usuario_edit_text">Tu nombre</string>
+    <string name="nombre_usuario_edit_text">Tu nombre:</string>
     <string name="set_desde_fecha">DD/MM/AAAA</string>
     <string name="set_hasta_fecha">DD/MM/AAAA</string>
     <string name="listo">Listo</string>
@@ -25,14 +25,19 @@
     <string name="consejo_codigo_calendario">Comparte o copia este código a tus amigos para que puedan acceder al evento: </string>
     <string name="toast_copiar">Copiado correctamente </string>
     <string name="dias_comunes">Días en común: </string>
+    <string name="tus_eventos">Tus eventos guardados: </string>
     <string name="consejo_ver_calendario">Pega el código del evento en el siguiente campo: </string>
     <string name="nombre_ver_calendario">Introduce tu nombre en el siguiente campo: </string>
     <string name="advertencia_usuario_existente">Ya hay un usuario con ese nombre, cambia tu nombre para continuar.</string>
     <string name="advertencia_elegir_dia">Selecciona tus días disponibles.</string>
+    <string name="advertencia_fecha_anterior">No puedes elegir una fecha desde posterior a tu fecha hasta.</string>
+    <string name="advertencia_fecha_no_valida">Error en las fechas, el formato no es válido.</string>
     <string name="advertencia_no_calendario">No existe ningún evento con ese código.</string>
     <string name="advertencia_no_internet">No hay conexión a Internet, por favor conéctese e inténtelo de nuevo.</string>
     <string name="consejo_mantener_hora">Selecciona las horas y aprieta en guardar.</string>
     <string name="nombre_calendario">Sin nombre</string>
+    <string name="nombre_creador_evento">Creador desconocido</string>
+    <string name="nombre_evento">Evento desconocido</string>
 
     <string name="enero">de enero</string>
     <string name="febrero">de febrero</string>
@@ -56,6 +61,7 @@
     </string-array>
     <string name="string_spinner_horas_calendario">Elige horario</string>
     <string name="dias_comunes_vacios">No hay días en común...</string>
+    <string name="sin_eventos">No tienes ningún evento guardado...</string>
     <string-array name="horas_calendario">
         <item>00:00</item>
         <item>01:00</item>

@@ -10,6 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import es.uv.jaimediazgonzalez.facilquedar.DateDialog;
 import es.uv.jaimediazgonzalez.facilquedar.R;
@@ -107,31 +112,41 @@ public class CrearCalendario  extends AppCompatActivity {
     };
 
     //Si tiene fecha válida, entonces podemos activar el botón.
-    private void comprobarFechaDesdeHasta() {
+    private void comprobarFechaDesdeHasta()  {
         String s1 = fechaDesde.getText().toString();
         String s2 = fechaHasta.getText().toString();
 
-        if(s1.equals("") && s2.equals(""))
+        if(s1.equals("") || s2.equals(""))
         {
             listo.setEnabled(false);
             listo.setBackgroundColor(Color.parseColor("#D3D3D3"));
-        }
-
-        else if(!s1.equals("")&&s2.equals("")){
-            listo.setEnabled(false);
-            listo.setBackgroundColor(Color.parseColor("#D3D3D3"));
-        }
-
-        else if(!s2.equals("")&&s1.equals(""))
+        } else
         {
-            listo.setEnabled(false);
-            listo.setBackgroundColor(Color.parseColor("#D3D3D3"));
-        }
+            // Comprobamos que la fecha desde es anterior a hasta
+            SimpleDateFormat formatDates = new SimpleDateFormat("dd/MM/yyyy");
+            Date desdeDate = null;
+            Date hastaDate = null;
+            try {
+                desdeDate = formatDates.parse(s1);
+                hastaDate = formatDates.parse(s2);
+            } catch (ParseException e) {
+                String advertenciaFechasInvalidas = getResources().getString(R.string.advertencia_fecha_no_valida);
+                Toast.makeText(CrearCalendario.this, advertenciaFechasInvalidas,
+                        Toast.LENGTH_LONG).show();
+                e.printStackTrace();
+                return;
+            }
 
-        else
-        {
-            listo.setEnabled(true);
-            listo.setBackgroundColor(Color.parseColor("#0D98FF"));
+            if(desdeDate.before(hastaDate)){
+                listo.setEnabled(true);
+                listo.setBackgroundColor(Color.parseColor("#0D98FF"));
+            } else{
+                String advertenciaFechaAnterior = getResources().getString(R.string.advertencia_fecha_anterior);
+                Toast.makeText(CrearCalendario.this, advertenciaFechaAnterior,
+                        Toast.LENGTH_LONG).show();
+                listo.setEnabled(false);
+                listo.setBackgroundColor(Color.parseColor("#D3D3D3"));
+            }
         }
     }
 }

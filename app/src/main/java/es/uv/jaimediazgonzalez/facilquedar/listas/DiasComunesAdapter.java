@@ -75,18 +75,29 @@ public class DiasComunesAdapter extends BaseAdapter {
             holder.diaText.setText(String.valueOf(fecha.getDia()));
             holder.mesText.setText(fecha.getMes());
             holder.anyoText.setText(String.valueOf(fecha.getAnyo()));
+
             // Si es un dia común, lo pintamos de verde
-            if(this.arrayDiasComunes.contains(fecha)){
-                holder.diaText.setTextColor(Color.rgb(255, 86, 25));
-                holder.mesText.setTextColor(Color.rgb(255, 86, 25));
-                holder.anyoText.setTextColor(Color.rgb(255, 86, 25));
-            } else{
+            if(isFechaComun(fecha)){
                 holder.diaText.setTextColor(Color.rgb(79, 178, 9));
                 holder.mesText.setTextColor(Color.rgb(79, 178, 9));
                 holder.anyoText.setTextColor(Color.rgb(79, 178, 9));
+            } else{
+                holder.diaText.setTextColor(Color.rgb(255, 86, 25));
+                holder.mesText.setTextColor(Color.rgb(255, 86, 25));
+                holder.anyoText.setTextColor(Color.rgb(255, 86, 25));
             }
         }
         return v;
+    }
+
+    private boolean isFechaComun(FechaCursor fecha) {
+        for (FechaCursor tmp : this.arrayDiasComunes){
+            if(fecha.getAnyo() == tmp.getAnyo())
+                if(fecha.getMes().equals(tmp))
+                    if(fecha.getDia() == tmp.getDia())
+                        return true;
+        }
+        return false;
     }
 
     public void setDiasComunes(ArrayList<FechaCursor> dias){

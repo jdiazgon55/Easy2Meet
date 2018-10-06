@@ -34,6 +34,8 @@ import java.util.List;
 import es.uv.jaimediazgonzalez.facilquedar.CalendarioObjeto;
 import es.uv.jaimediazgonzalez.facilquedar.EventDecorator;
 import es.uv.jaimediazgonzalez.facilquedar.R;
+import es.uv.jaimediazgonzalez.facilquedar.basedatos.EventoDbHelper;
+import es.uv.jaimediazgonzalez.facilquedar.listas.Evento;
 
 /**
  * Created by Familia Diaz on 02/07/2017.
@@ -52,7 +54,8 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
     private DatabaseReference usersDataReference, propiedadesCalendarioReference;
 
     private Button guardar;
-    private Boolean isFirstTime = true;
+    HashMap<String, Object> usersHashMapRecogido;
+    private Boolean isFirstTimeUsers = true, isFirstTimeProperties = true;
     private TextView nombreCalendario;
     private Date fechaDesde, fechaHasta;
     private String codigoUnico,
@@ -70,12 +73,11 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendario);
-        HashMap<String, Object> usersHashMap;
 
         //Recogemos los datos del Intent
         codigoUnico = getIntent().getStringExtra("codigoUnico");
         nombreUsuario = getIntent().getStringExtra("nombreUsuario");
-        usersHashMap = (HashMap<String, Object>)getIntent().getSerializableExtra("usuariosHash");
+        usersHashMapRecogido = (HashMap<String, Object>)getIntent().getSerializableExtra("usuariosHash");
 
         nombreCalendario = (TextView) findViewById(R.id.text_view_mantener_dia);
         calendario = (MaterialCalendarView) findViewById(R.id.calendarioView);
@@ -87,7 +89,7 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
                 .setMaximumDate(CalendarDay.from(fechaHasta))
                 .commit();
 
-        this.mostrarDatosCalendario(usersHashMap);
+        this.mostrarDatosCalendario(usersHashMapRecogido);
 
         calendario.setOnDateChangedListener(this);
 
@@ -130,8 +132,8 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
     ValueEventListener retrieveUsersDataListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
-            if(isFirstTime){
-                isFirstTime = false;
+            if(isFirstTimeUsers){
+                isFirstTimeUsers = false;
                 return;
             }
             // Get Post object and use the values to update the UI
@@ -190,6 +192,11 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
             fechaDesde = calendarioObjeto.getFechaDesdeDate();
             fechaHasta = calendarioObjeto.getFechaHastaDate();
             nombreCalendario.setText(calendarioObjeto.getNombreCalendario());
+
+            if(isFirstTimeProperties){
+                guardarEventoBaseDatos(usersHashMapRecogido, calendarioObjeto.getNombreCalendario());
+                isFirstTimeProperties = false;
+            }
 
             //Ponemos el rango de fechas al calendario
             calendario.state().edit()
@@ -310,6 +317,17 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
             }
         }
         return listaDiasTemp;
+    }
+
+    private void guardarEventoBaseDatos(HashMap<String, Object> usersHashMap, String nombreEvento) {
+        EventoDbHelper baseDatosEventos = new EventoDbHelper(getApplicationContext());
+
+        for (String nombreUsuario : usersHashMap.keySet()){
+            int id = baseDatosEventos.getUltimoId() + 1;
+            Evento tmpEvento = new Evento(nombreEvento, codigoUnico, nombreUsuario, id);
+            baseDatosEventos.InsertarEvento(tmpEvento);
+            return;
+        }
     }
 
     private String getFirstTwoCharacters(String time){

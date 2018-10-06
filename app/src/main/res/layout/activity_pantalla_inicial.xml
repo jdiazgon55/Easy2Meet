@@ -47,15 +47,6 @@
                 android:background="#0D98FF"
                 android:textColor="#FFFFFF"/>
 
-            <Button
-                android:id="@+id/instrucciones"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/instrucciones"
-                android:layout_marginBottom="25dp"
-                android:background="#0D98FF"
-                android:textColor="#FFFFFF"/>
-
         </LinearLayout>
     </RelativeLayout>
 

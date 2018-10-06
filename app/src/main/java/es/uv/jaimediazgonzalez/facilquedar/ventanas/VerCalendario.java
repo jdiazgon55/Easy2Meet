@@ -73,7 +73,8 @@ public class VerCalendario extends AppCompatActivity {
 
             if(isOnline()){
                 database = FirebaseDatabase.getInstance();
-                usersDataReference = database.getReference().child(codigo.getText().toString()).child("Users");
+                usersDataReference = database.getReference().child(codigo.getText().toString()
+                        .replaceAll("\\s+","")).child("Users");
                 usersDataReference.addListenerForSingleValueEvent(retrieveUsersDataListener);
             } else{
                 String advertenciaNoInternet = getResources().getString(R.string.advertencia_no_internet);
@@ -117,7 +118,8 @@ public class VerCalendario extends AppCompatActivity {
                     Intent explicit_intent;
                     //Instanciamos el Intent dandole:
                     explicit_intent = new Intent(VerCalendario.this, CalendarioRecibido.class);
-                    explicit_intent.putExtra("codigoUnico", codigo.getText().toString());
+                    explicit_intent.putExtra("codigoUnico", codigo.getText().toString().
+                            replaceAll("\\s+",""));
                     explicit_intent.putExtra("nombreUsuario", nombreUsuarioString);
                     explicit_intent.putExtra("nombreUsuario", nombreUsuarioString);
                     explicit_intent.putExtra("usuariosHash", usersHashMap);

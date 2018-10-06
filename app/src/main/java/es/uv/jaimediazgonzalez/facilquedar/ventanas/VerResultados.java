@@ -104,6 +104,7 @@ public class VerResultados extends AppCompatActivity {
             crearListView(usersHashMap);
 
             diasComunesAdapter = new DiasComunesAdapter(context, diasComunesArray);
+            diasComunesAdapter.setDiasComunes(diasComunesArray);
             comunesList.setAdapter(diasComunesAdapter);
             ListaUtil.setListViewHeightBasedOnChildren(comunesList);
             Log.d(TAG, "Value is: " + usersHashMap.toString());
@@ -193,7 +194,7 @@ public class VerResultados extends AppCompatActivity {
         diasUsuarioCursor = guardarEnAdapter((ArrayList<String>)usersHashMap.get(key));
 
         DiasComunesAdapter diasUsuarioAdapter = new DiasComunesAdapter(context, diasUsuarioCursor);
-        diasUsuarioAdapter.setDiasComunes(diasUsuarioCursor);
+        diasUsuarioAdapter.setDiasComunes(diasComunesArray);
         ListView listaUsuario = new ListView(this);
 
         listaUsuario.setAdapter(diasUsuarioAdapter);
