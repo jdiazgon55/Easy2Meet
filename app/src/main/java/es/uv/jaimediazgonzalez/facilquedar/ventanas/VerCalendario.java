@@ -2,6 +2,7 @@ package es.uv.jaimediazgonzalez.facilquedar.ventanas;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -25,6 +26,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 
 import es.uv.jaimediazgonzalez.facilquedar.R;
+import es.uv.jaimediazgonzalez.facilquedar.basedatos.EventoDbHelper;
+import es.uv.jaimediazgonzalez.facilquedar.listas.Evento;
 
 /**
  * Created by Familia Diaz on 25/12/2017.
@@ -65,6 +68,16 @@ public class VerCalendario extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
+            String codigoUnico = codigo.getText().toString().trim().replaceAll("\n ", "");;
+
+            //Ya tengo este evento, para qué usar otro nombre
+            if(existeEventoBD(codigoUnico)){
+                String advertenciaEventoYaPresente = getResources().getString(R.string.advertencia_evento_presente);
+                Toast.makeText(VerCalendario.this, advertenciaEventoYaPresente,
+                        Toast.LENGTH_LONG).show();
+                return;
+            }
+
             progressBarHolder = (FrameLayout) findViewById(R.id.progressBarHolder);
             inAnimation = new AlphaAnimation(0f, 1f);
             inAnimation.setDuration(200);
@@ -73,8 +86,7 @@ public class VerCalendario extends AppCompatActivity {
 
             if(isOnline()){
                 database = FirebaseDatabase.getInstance();
-                usersDataReference = database.getReference().child(codigo.getText().toString()
-                        .replaceAll("\\s+","")).child("Users");
+                usersDataReference = database.getReference().child(codigoUnico).child("Users");
                 usersDataReference.addListenerForSingleValueEvent(retrieveUsersDataListener);
             } else{
                 String advertenciaNoInternet = getResources().getString(R.string.advertencia_no_internet);
@@ -87,6 +99,18 @@ public class VerCalendario extends AppCompatActivity {
             }
         }
     };
+
+    private boolean existeEventoBD(String codigoEvento){
+        EventoDbHelper baseDatosEventos = new EventoDbHelper(getApplicationContext());
+
+        Cursor eventos = baseDatosEventos.getEventosByCodigo(codigoEvento);
+        // Si no existe ningún evento como este en la base de datos
+        if (eventos.getCount() == 0) {
+            return false;
+        } else{
+            return true;
+        }
+    }
 
 
     ValueEventListener retrieveUsersDataListener = new ValueEventListener() {
@@ -121,7 +145,6 @@ public class VerCalendario extends AppCompatActivity {
                     explicit_intent.putExtra("codigoUnico", codigo.getText().toString().
                             replaceAll("\\s+",""));
                     explicit_intent.putExtra("nombreUsuario", nombreUsuarioString);
-                    explicit_intent.putExtra("nombreUsuario", nombreUsuarioString);
                     explicit_intent.putExtra("usuariosHash", usersHashMap);
 
                     startActivity(explicit_intent);
@@ -137,12 +160,17 @@ public class VerCalendario extends AppCompatActivity {
             }
         }
 
+
         @Override
         public void onCancelled(DatabaseError databaseError) {
             // Getting Post failed, log a message
-            Toast.makeText(VerCalendario.this, "Fallo al descargar el calendario.\n " +
-                            "¿Estás conectado a internet?.",
+            String mensaje = getResources().getString(R.string.error_descarga);
+            Toast.makeText(VerCalendario.this, mensaje,
                     Toast.LENGTH_SHORT).show();
+            outAnimation = new AlphaAnimation(1f, 0f);
+            outAnimation.setDuration(200);
+            progressBarHolder.setAnimation(outAnimation);
+            progressBarHolder.setVisibility(View.GONE);
         }
     };
 

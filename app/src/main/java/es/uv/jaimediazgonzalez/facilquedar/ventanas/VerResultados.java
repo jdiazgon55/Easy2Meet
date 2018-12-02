@@ -18,6 +18,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -49,6 +52,7 @@ public class VerResultados extends AppCompatActivity {
     Context context;
     private ArrayList<String> diasSeleccionados;
     private String nombreUsuario, codigoUnico;
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +80,10 @@ public class VerResultados extends AppCompatActivity {
 
         DatabaseReference users = myRef.child("Users");
         DatabaseReference usuarioActual = users.child(nombreUsuario);
+
+        if(diasSeleccionados.isEmpty()){
+            diasSeleccionados.add(getResources().getString(R.string.sin_seleccionar_dia));
+        }
         usuarioActual.setValue(diasSeleccionados);
 
         users.addValueEventListener(retrieveUsersDataListener);
@@ -85,6 +93,11 @@ public class VerResultados extends AppCompatActivity {
         comunesList.setEmptyView(findViewById(R.id.emptyElement));
 
         layout = (RelativeLayout) findViewById(R.id.relative_layout);
+
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        mInterstitialAd.setAdListener(interstitialADListener);
 
         /* LISTENERS */
         listo.setOnClickListener(volverMenuPrincipalListener);
@@ -99,15 +112,17 @@ public class VerResultados extends AppCompatActivity {
             diasComunesTemp = new ArrayList<String>();
             diasComunesArray = new ArrayList<FechaCursor>();
 
-            leerDiasComunes(usersHashMap);
-            diasComunesArray = guardarEnAdapter(diasComunesTemp);
-            crearListView(usersHashMap);
+            if(usersHashMap != null) {
+                leerDiasComunes(usersHashMap);
+                diasComunesArray = guardarEnAdapter(diasComunesTemp);
+                crearListView(usersHashMap);
 
-            diasComunesAdapter = new DiasComunesAdapter(context, diasComunesArray);
-            diasComunesAdapter.setDiasComunes(diasComunesArray);
-            comunesList.setAdapter(diasComunesAdapter);
-            ListaUtil.setListViewHeightBasedOnChildren(comunesList);
-            Log.d(TAG, "Value is: " + usersHashMap.toString());
+                diasComunesAdapter = new DiasComunesAdapter(context, diasComunesArray);
+                diasComunesAdapter.setDiasComunes(diasComunesArray);
+                comunesList.setAdapter(diasComunesAdapter);
+                ListaUtil.setListViewHeightBasedOnChildren(comunesList);
+                Log.d(TAG, "Value is: " + usersHashMap.toString());
+            }
         }
 
         @Override
@@ -160,7 +175,7 @@ public class VerResultados extends AppCompatActivity {
                 p.addRule(RelativeLayout.BELOW, R.id.listcomunesview);
 
                 int dp = (int) (16 * Resources.getSystem().getDisplayMetrics().density);
-                p.setMargins(0, dp, 0, dp);
+                p.setMargins(0, 65, 0, dp);
                 anteriorUsuarioNombre.setLayoutParams(p);
                 anteriorUsuarioNombre.setId(bandera);
                 layout.addView(anteriorUsuarioNombre);
@@ -219,19 +234,36 @@ public class VerResultados extends AppCompatActivity {
     private ArrayList<FechaCursor> guardarEnAdapter(List<String> diasComunesTemp) {
         ArrayList<FechaCursor> diasCursorTemp = new ArrayList<FechaCursor>();
 
-        for(String diaComun : diasComunesTemp){
-            String[] split = diaComun.split("/");
+        if (isSelectedDatesNotEmpty(diasComunesTemp)) {
+            for (String diaComun : diasComunesTemp) {
+                String[] split = diaComun.split("/");
 
-            Integer day = Integer.parseInt(split[0]);
-            Integer month = Integer.parseInt(split[1]);
-            Integer year = Integer.parseInt(split[2]);
+                Integer day = Integer.parseInt(split[0]);
+                Integer month = Integer.parseInt(split[1]);
+                Integer year = Integer.parseInt(split[2]);
 
-            String stringMonth = monthToString(month);
-            FechaCursor tmpFecha = new FechaCursor(day, stringMonth, year);
+                String stringMonth = monthToString(month);
+                FechaCursor tmpFecha = new FechaCursor(day, stringMonth, year);
 
-            diasCursorTemp.add(tmpFecha);
+                diasCursorTemp.add(tmpFecha);
+            }
         }
         return diasCursorTemp;
+    }
+
+    private boolean isSelectedDatesNotEmpty(List<String> selectedDates) {
+        if(!selectedDates.isEmpty()) {
+            if(selectedDates.get(0).equals(getResources().getString(R.string.sin_seleccionar_dia))){
+                if(selectedDates.size() == 1)
+                    return false;
+                else {
+                    selectedDates.remove(0);
+                    return true;
+                }
+            } else
+                return true;
+        }
+        return false;
     }
 
     private Boolean comprobarDia(String value) {
@@ -270,6 +302,19 @@ public class VerResultados extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
+
+            if (mInterstitialAd.isLoaded()) {
+                mInterstitialAd.show();
+            } else {
+                Log.d("TAG", "The interstitial wasn't loaded yet.");
+            }
+        }
+    };
+
+    AdListener interstitialADListener = new AdListener(){
+        @Override
+        public void onAdClosed() {
+            // Code to be executed when when the interstitial ad is closed.
             //Declaro el Intent.
             Intent explicit_intent;
             //Instanciamos el Intent dandole:
@@ -277,5 +322,4 @@ public class VerResultados extends AppCompatActivity {
             startActivity(explicit_intent);
         }
     };
-
 }

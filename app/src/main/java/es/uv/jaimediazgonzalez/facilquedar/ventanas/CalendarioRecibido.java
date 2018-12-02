@@ -2,6 +2,7 @@ package es.uv.jaimediazgonzalez.facilquedar.ventanas;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -23,10 +24,7 @@ import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -63,11 +61,13 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
     private ArrayList<String> diasComunesTemp;
     private ArrayList<String> diasNoBorrar;
     private ArrayList<String> listaHorasSeleccionadas;
+    /*
     private final ArrayList<String> listaHoras = new ArrayList<String>(
             Arrays.asList("00:00", "01:00", "02:00", "03:00", "04:00", "05:00", "06:00"
                     , "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00"
                     , "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00"
                     , "21:00", "22:00", "23:00"));
+    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,29 +132,39 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
     ValueEventListener retrieveUsersDataListener = new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
+            List<CalendarDay> diasSeleccionadosUsuario = new ArrayList<CalendarDay>();
             if(isFirstTimeUsers){
                 isFirstTimeUsers = false;
+                for (String key : usersHashMapRecogido.keySet()){
+                    if (key.equals(nombreUsuario)){
+                        ArrayList<String> selectedDates = (ArrayList<String>)usersHashMapRecogido.get(key);
+                        convertirStringToCalendarDay(diasSeleccionadosUsuario, selectedDates);
+                        ponerDiasSeleccionadosUsuario(diasSeleccionadosUsuario);
+                    }
+                }
                 return;
             }
             // Get Post object and use the values to update the UI
             HashMap<String, Object> usersHashMap = (HashMap<String, Object>)dataSnapshot.getValue();
-            List<CalendarDay> diasSeleccionados = new ArrayList<CalendarDay>();
+            List<CalendarDay> diasSeleccionadosTodos = new ArrayList<CalendarDay>();
             List<CalendarDay> diasComunes = new ArrayList<CalendarDay>();
             diasComunesTemp = new ArrayList<String>();
 
-            leerDiasComunes(usersHashMap);
-            for (String key : usersHashMap.keySet()){
-                ArrayList<String> selectedDates = (ArrayList<String>)usersHashMap.get(key);
-                convertirStringToCalendarDay(diasSeleccionados, selectedDates);
+            if(usersHashMap != null) {
+                leerDiasComunes(usersHashMap);
+                for (String key : usersHashMap.keySet()) {
+                    ArrayList<String> selectedDates = (ArrayList<String>) usersHashMap.get(key);
+                    convertirStringToCalendarDay(diasSeleccionadosTodos, selectedDates);
+                }
+
+                convertirStringToCalendarDay(diasComunes, diasComunesTemp);
+                eventDecoratorSeleccionados = new EventDecorator(Color.rgb(255, 86, 25), diasSeleccionadosTodos);
+                eventDecoratorComunes = new EventDecorator(Color.rgb(79, 178, 9), diasComunes);
+
+                calendario.addDecorator(eventDecoratorSeleccionados);
+                calendario.addDecorator(eventDecoratorComunes);
+                Log.d(TAG, "Value is: " + usersHashMap.toString());
             }
-
-            convertirStringToCalendarDay(diasComunes, diasComunesTemp);
-            eventDecoratorSeleccionados = new EventDecorator(Color.rgb(250, 210, 1), diasSeleccionados);
-            eventDecoratorComunes = new EventDecorator(Color.rgb(13, 255, 92), diasComunes);
-
-            calendario.addDecorator(eventDecoratorSeleccionados);
-            calendario.addDecorator(eventDecoratorComunes);
-            Log.d(TAG, "Value is: " + usersHashMap.toString());
         }
 
         @Override
@@ -167,15 +177,39 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
         }
     };
 
-    private void convertirStringToCalendarDay(List<CalendarDay> diasSeleccionados, ArrayList<String> selectedDates) {
-        for (String value : selectedDates){
-            String[] split = value.split("/");
-            Integer day = Integer.parseInt(split[0]);
-            Integer month = Integer.parseInt(split[1]);
-            Integer year = Integer.parseInt(split[2]);
-            CalendarDay tmpCalendarDay = CalendarDay.from(year, month, day);
-            diasSeleccionados.add(tmpCalendarDay);
+    private void ponerDiasSeleccionadosUsuario(List<CalendarDay> diasSeleccionadosUsuario) {
+        for (CalendarDay day : diasSeleccionadosUsuario){
+            calendario.setDateSelected(day, true);
         }
+    }
+
+    private void convertirStringToCalendarDay(List<CalendarDay> diasSeleccionados, ArrayList<String> selectedDates) {
+        // La lista necesita dias
+        if(isSelectedDatesNotEmpty(selectedDates)) {
+            for (String value : selectedDates) {
+                String[] split = value.split("/");
+                Integer day = Integer.parseInt(split[0]);
+                Integer month = Integer.parseInt(split[1]);
+                Integer year = Integer.parseInt(split[2]);
+                CalendarDay tmpCalendarDay = CalendarDay.from(year, month, day);
+                diasSeleccionados.add(tmpCalendarDay);
+            }
+        }
+    }
+
+    private boolean isSelectedDatesNotEmpty(ArrayList<String> selectedDates) {
+        if(!selectedDates.isEmpty()) {
+            if(selectedDates.get(0).equals(getResources().getString(R.string.sin_seleccionar_dia))){
+                if(selectedDates.size() == 1)
+                    return false;
+                else {
+                    selectedDates.remove(0);
+                    return true;
+                }
+            } else
+                return true;
+        }
+        return false;
     }
 
     ValueEventListener retrievePropiedadesCalendarioDataListener = new ValueEventListener() {
@@ -194,7 +228,7 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
             nombreCalendario.setText(calendarioObjeto.getNombreCalendario());
 
             if(isFirstTimeProperties){
-                guardarEventoBaseDatos(usersHashMapRecogido, calendarioObjeto.getNombreCalendario());
+                ejecutarGuardarEventoAsync(usersHashMapRecogido, calendarioObjeto.getNombreCalendario());
                 isFirstTimeProperties = false;
             }
 
@@ -319,37 +353,29 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
         return listaDiasTemp;
     }
 
-    private void guardarEventoBaseDatos(HashMap<String, Object> usersHashMap, String nombreEvento) {
+    public void ejecutarGuardarEventoAsync(final HashMap<String, Object> usersHashMap, final String nombreEvento){
+        new Thread(new Runnable(){
+            @Override
+            public void run(){
+                guardarEventoBaseDatos(usersHashMap, nombreEvento);
+            }
+        }).start();
+    }
+
+    private void guardarEventoBaseDatos(HashMap<String, Object> usersHashMap, String nombreEvento){
         EventoDbHelper baseDatosEventos = new EventoDbHelper(getApplicationContext());
 
-        for (String nombreUsuario : usersHashMap.keySet()){
+        String nombreCreador = usersHashMap.keySet().iterator().next();
+
+        Cursor eventos = baseDatosEventos.getEventosByCodigo(codigoUnico);
+        // Si no existe ningún evento como este en la base de datos
+        if (eventos.getCount() == 0) {
             int id = baseDatosEventos.getUltimoId() + 1;
-            Evento tmpEvento = new Evento(nombreEvento, codigoUnico, nombreUsuario, id);
+            Evento tmpEvento = new Evento(nombreEvento, codigoUnico, nombreCreador, nombreUsuario, id);
             baseDatosEventos.InsertarEvento(tmpEvento);
             return;
         }
-    }
-
-    private String getFirstTwoCharacters(String time){
-        return time.substring(0,2);
-    }
-
-    private Date castStringToDate(String date){
-        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        try {
-            return format.parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public CalendarDay getCurrentSelectedDate(){
-        return this.currentSelectedDate;
-    }
-
-    public void setCurrentSelectedDate(CalendarDay day){
-        this.currentSelectedDate = day;
+        return;
     }
 
     public boolean isOnline() {

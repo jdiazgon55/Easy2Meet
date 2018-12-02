@@ -14,7 +14,7 @@ public class EventoDbHelper extends SQLiteOpenHelper {
 
     private final String idEvento = "idEvento", nombreEvento = "nombreEvento", 
             codigoEvento = "codigoEvento", nombreCreador = "nombreCreador",
-            tablaEventos = "TablaEventos";
+            nombreUsuario ="nombreUsuario", tablaEventos = "TablaEventos";
 
     public EventoDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -28,6 +28,7 @@ public class EventoDbHelper extends SQLiteOpenHelper {
                 + nombreEvento + " TEXT NOT NULL,"
                 + codigoEvento + " TEXT NOT NULL,"
                 + nombreCreador + " TEXT NOT NULL,"
+                + nombreUsuario + " TEXT NOT NULL,"
                 + "UNIQUE (" + idEvento + "))");
 
     }
@@ -45,6 +46,7 @@ public class EventoDbHelper extends SQLiteOpenHelper {
         values.put(nombreEvento, tmpEvento.getNombreEvento());
         values.put(codigoEvento, tmpEvento.getCodigoEvento());
         values.put(nombreCreador, tmpEvento.getNombreCreador());
+        values.put(nombreUsuario, tmpEvento.getNombreUsuario());
 
         db.beginTransaction();
         db.insert(tablaEventos, null, values);

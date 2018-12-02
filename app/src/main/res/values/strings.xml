@@ -1,67 +1,77 @@
 <resources>
-    <string name="app_name">FacilQuedar</string>
-    <string name="crear_calendario">Crear evento</string>
-    <string name="guardar_horas">Guardar horas</string>
-    <string name="instrucciones">Instrucciones</string>
-    <string name="mis_calendarios">Mis eventos</string>
-    <string name="ver_calendario">Ver evento</string>
-    <string name="set_nombre_calendario">Nombre del evento</string>
-    <string name="set_apodo_calendario">Ponte un apodo</string>
-    <string name="codigo_calendario_edit_text">Código del evento</string>
-    <string name="nombre_usuario_edit_text">Tu nombre:</string>
-    <string name="set_desde_fecha">DD/MM/AAAA</string>
-    <string name="set_hasta_fecha">DD/MM/AAAA</string>
-    <string name="listo">Listo</string>
-    <string name="copiar">Copiar</string>
-    <string name="compartir">Compartir</string>
-    <string name="guardar">Guardar</string>
-    <string name="nombre_calendario_textView">Nombre: </string>
-    <string name="horario_textView">Horario: </string>
-    <string name="hora_inicial_textView">Hora inicial: </string>
-    <string name="hora_final_textView">Hora final: </string>
-    <string name="desde_textView">Desde: </string>
-    <string name="hasta_textView">Hasta: </string>
-    <string name="consejo_mantener_dia">Selecciona por lo menos un día para crear el evento </string>
-    <string name="consejo_codigo_calendario">Comparte o copia este código a tus amigos para que puedan acceder al evento: </string>
-    <string name="toast_copiar">Copiado correctamente </string>
-    <string name="dias_comunes">Días en común: </string>
-    <string name="tus_eventos">Tus eventos guardados: </string>
-    <string name="consejo_ver_calendario">Pega el código del evento en el siguiente campo: </string>
-    <string name="nombre_ver_calendario">Introduce tu nombre en el siguiente campo: </string>
-    <string name="advertencia_usuario_existente">Ya hay un usuario con ese nombre, cambia tu nombre para continuar.</string>
-    <string name="advertencia_elegir_dia">Selecciona tus días disponibles.</string>
-    <string name="advertencia_fecha_anterior">No puedes elegir una fecha desde posterior a tu fecha hasta.</string>
-    <string name="advertencia_fecha_no_valida">Error en las fechas, el formato no es válido.</string>
-    <string name="advertencia_no_calendario">No existe ningún evento con ese código.</string>
-    <string name="advertencia_no_internet">No hay conexión a Internet, por favor conéctese e inténtelo de nuevo.</string>
-    <string name="consejo_mantener_hora">Selecciona las horas y aprieta en guardar.</string>
-    <string name="nombre_calendario">Sin nombre</string>
-    <string name="nombre_creador_evento">Creador desconocido</string>
-    <string name="nombre_evento">Evento desconocido</string>
+    <string name="app_name">DayPicker</string>
+    <string name="crear_calendario">Create event</string>
+    <string name="guardar_horas">Save hours</string>
+    <string name="instrucciones">Instrucctions</string>
+    <string name="mis_calendarios">My events</string>
+    <string name="ver_calendario">Get event</string>
+    <string name="set_nombre_calendario">Event\'s name</string>
+    <string name="set_apodo_calendario">Use a nickname</string>
+    <string name="codigo_calendario_edit_text">Event\'s code</string>
+    <string name="nombre_usuario_edit_text">Your name:</string>
+    <string name="set_desde_fecha">DD/MM/YYYY</string>
+    <string name="set_hasta_fecha">DD/MM/YYYY</string>
+    <string name="listo">Continue</string>
+    <string name="copiar">Copy</string>
+    <string name="compartir">Share</string>
+    <string name="guardar">Save</string>
+    <string name="nombre_calendario_textView">Name: </string>
+    <string name="horario_textView">Timetable: </string>
+    <string name="hora_inicial_textView">Initial time: </string>
+    <string name="hora_final_textView">Ending time: </string>
+    <string name="desde_textView">From: </string>
+    <string name="hasta_textView">To: </string>
+    <string name="consejo_mantener_dia">Pick at least one day to create the event </string>
+    <string name="consejo_codigo_calendario">Share this code with your friends so that they can get the event: </string>
+    <string name="toast_copiar">Copied correctly </string>
+    <string name="dias_comunes">Common days: </string>
+    <string name="tus_eventos">Your saved events: </string>
+    <string name="consejo_ver_calendario">Paste the code of the event in the following field: </string>
+    <string name="nombre_ver_calendario">Enter your name in the following field: </string>
+    <string name="advertencia_usuario_existente">There is already an user with that name. Please change it.</string>
+    <string name="advertencia_elegir_dia">Pick your available days.</string>
+    <string name="advertencia_fecha_anterior">You cannot choose a later date from your beginning date.</string>
+    <string name="advertencia_fecha_no_valida">Date error, format not valid.</string>
+    <string name="advertencia_no_calendario">There is no event with that code.</string>
+    <string name="advertencia_no_internet">No internet connection found, please check your network and try again.</string>
+    <string name="consejo_mantener_hora">Choose the hours and press on save.</string>
+    <string name="nombre_calendario">No name</string>
+    <string name="nombre_creador_evento">Unknown creator</string>
+    <string name="nombre_evento">Unknown Event</string>
 
-    <string name="enero">de enero</string>
-    <string name="febrero">de febrero</string>
-    <string name="marzo">de marzo</string>
-    <string name="abril">de abril</string>
-    <string name="mayo">de mayo</string>
-    <string name="junio">de junio</string>
-    <string name="julio">de julio</string>
-    <string name="agosto">de agosto</string>
-    <string name="septiembre">de septiembre</string>
-    <string name="octubre">de octubre</string>
-    <string name="noviembre">de noviembre</string>
-    <string name="diciembre">de diciembre</string>
+    <string name="enero">of January</string>
+    <string name="febrero">of February</string>
+    <string name="marzo">of March</string>
+    <string name="abril">of April</string>
+    <string name="mayo">of May</string>
+    <string name="junio">of June</string>
+    <string name="julio">of July</string>
+    <string name="agosto">of August</string>
+    <string name="septiembre">of September</string>
+    <string name="octubre">of October</string>
+    <string name="noviembre">of November</string>
+    <string name="diciembre">of December</string>
 
-    <string name="string_spinner_tipo_calendario">Elige horario</string>
+    <string name="string_spinner_tipo_calendario">Chose timetable</string>
     <string-array name="tipo_calendario">
-        <item>Por días</item>
-        <item>Por horas (no disponible)</item>
-        <item>Por semanas (no disponible)</item>
-        <item>Por meses (no disponible)</item>
+        <item>By days</item>
+        <item>By hours (not available)</item>
+        <item>By weeks (not available)</item>
+        <item>By monts (not available)</item>
     </string-array>
-    <string name="string_spinner_horas_calendario">Elige horario</string>
-    <string name="dias_comunes_vacios">No hay días en común...</string>
-    <string name="sin_eventos">No tienes ningún evento guardado...</string>
+    <string name="string_spinner_horas_calendario">Chose timetable</string>
+    <string name="dias_comunes_vacios">There are no common days...</string>
+    <string name="sin_eventos">You do not have any stored event...</string>
+    <string name="eliminar_evento">Remove event</string>
+    <string name="borrar_evento">¿Remove Event?</string>
+    <string name="eliminar_evento_confirmacion">¿Are you sure you want to remove it?</string>
+    <string name="eliminar_evento_confirmacion_todos">Attention: You are going to remove this event for everyone. Are you sure?</string>
+    <string name="cancelar_borrado_evento">Cancel</string>
+    <string name="aceptar_borrado_evento">Confirm</string>
+    <string name="evento_creado_por">Created by:</string>
+    <string name="sin_seleccionar_dia">No day selected</string>
+    <string name="advertencia_evento_presente">You already have this event stored. Go to My Events to see the results.</string>
+    <string name="error_descarga">Error while downloading the calendar.\nHave you entered the correct code?</string>
     <string-array name="horas_calendario">
         <item>00:00</item>
         <item>01:00</item>

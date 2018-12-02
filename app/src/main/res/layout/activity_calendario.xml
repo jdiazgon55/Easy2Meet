@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/text_view_mantener_dia"
         app:mcv_selectionColor="#0D98FF"
-        app:mcv_showOtherDates="all" />
+        app:mcv_showOtherDates="none" />
 
     <Button
         android:id="@+id/guardarCalendario"

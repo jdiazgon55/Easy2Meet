@@ -6,11 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import es.uv.jaimediazgonzalez.facilquedar.R;
+import es.uv.jaimediazgonzalez.facilquedar.basedatos.EventoDbHelper;
 
 public class EventosCursorAdapter extends CursorAdapter {
     private ArrayList<Integer> idEventos;
@@ -45,14 +47,15 @@ public class EventosCursorAdapter extends CursorAdapter {
         String codigoEvento = cursor.getString(cursor.getColumnIndex("codigoEvento"));
         int idEvento = cursor.getInt(cursor.getColumnIndex("idEvento"));
         String nombreCreador = cursor.getString(cursor.getColumnIndex("nombreCreador"));
+        String nombreUsuario = cursor.getString(cursor.getColumnIndex("nombreUsuario"));
 
-        Evento tmpEvento = new Evento(nombreEvento, codigoEvento, nombreCreador, idEvento);
+        Evento tmpEvento = new Evento(nombreEvento, codigoEvento, nombreCreador, nombreUsuario, idEvento);
         arrayEventos.add(tmpEvento);
 
         idEventos.add(idEvento);
 
         nombreEventoText.setText(nombreEvento);
-        nombreCreadorText.setText(nombreCreador);
+        nombreCreadorText.setText(context.getString(R.string.evento_creado_por) + " " + nombreCreador);
     }
 
     public int getIdEvento(int indice){
@@ -62,5 +65,9 @@ public class EventosCursorAdapter extends CursorAdapter {
     public Evento getEvento(int indice){
         return arrayEventos.get(indice);
     }
-    
+
+    public void removeEvento(int position) {
+        idEventos.remove(position);
+        arrayEventos.remove(position);
+    }
 }

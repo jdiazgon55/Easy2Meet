@@ -93,7 +93,7 @@ public class DiasComunesAdapter extends BaseAdapter {
     private boolean isFechaComun(FechaCursor fecha) {
         for (FechaCursor tmp : this.arrayDiasComunes){
             if(fecha.getAnyo() == tmp.getAnyo())
-                if(fecha.getMes().equals(tmp))
+                if(fecha.getMes() == tmp.getMes())
                     if(fecha.getDia() == tmp.getDia())
                         return true;
         }

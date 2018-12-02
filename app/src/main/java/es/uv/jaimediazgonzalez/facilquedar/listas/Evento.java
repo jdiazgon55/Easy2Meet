@@ -5,13 +5,15 @@ import android.os.Parcelable;
 
 public class Evento implements Parcelable{
     
-    private String nombreEvento, codigoEvento, nombreCreador;
+    private String nombreEvento, codigoEvento, nombreCreador, nombreUsuario;
     private int id;
 
-    public Evento(String nombreEvento, String codigoEvento, String nombreCreador, int id) {
+    public Evento(String nombreEvento, String codigoEvento, String nombreCreador,
+                  String nombreUsuario, int id) {
         this.nombreEvento = nombreEvento;
         this.codigoEvento = codigoEvento;
         this.nombreCreador = nombreCreador;
+        this.nombreUsuario = nombreUsuario;
         this.id = id;
     }
     
@@ -19,6 +21,7 @@ public class Evento implements Parcelable{
         nombreEvento = in.readString();
         codigoEvento = in.readString();
         nombreCreador = in.readString();
+        nombreUsuario = in.readString();
         id = in.readInt();
     }
 
@@ -32,6 +35,7 @@ public class Evento implements Parcelable{
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(nombreEvento);
         parcel.writeString(nombreCreador);
+        parcel.writeString(nombreUsuario);
         parcel.writeString(codigoEvento);
         parcel.writeInt(id);
     }
@@ -80,4 +84,11 @@ public class Evento implements Parcelable{
         this.id = id;
     }
 
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
 }
