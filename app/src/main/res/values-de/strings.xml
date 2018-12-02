@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DayPicker</string>
+    <string name="crear_calendario">Erstellen Ereignis</string>
+    <string name="guardar_horas">Speichern Stunden</string>
+    <string name="instrucciones">Instrucctions</string>
+    <string name="mis_calendarios">Meine Ereignisse</string>
+    <string name="ver_calendario">Erhält Ereignis</string>
+    <string name="set_nombre_calendario">Ereignis\' Name</string>
+    <string name="set_apodo_calendario">geben Sie ein Spitzname</string>
+    <string name="codigo_calendario_edit_text">Ereignis\' code</string>
+    <string name="nombre_usuario_edit_text">Seine Name:</string>
+    <string name="set_desde_fecha">TT/MM/JJJJ</string>
+    <string name="set_hasta_fecha">TT/MM/JJJJ</string>
+    <string name="listo">Fortfahren</string>
+    <string name="copiar">Kopieren</string>
+    <string name="compartir">Teilen</string>
+    <string name="guardar">Speichern</string>
+    <string name="nombre_calendario_textView">Name: </string>
+    <string name="horario_textView">Kalender: </string>
+    <string name="hora_inicial_textView">Initial time: </string>
+    <string name="hora_final_textView">Ending time: </string>
+    <string name="desde_textView">Von: </string>
+    <string name="hasta_textView">Bis: </string>
+    <string name="consejo_mantener_dia">Bitte wählen Sie mindestens ein Tag um die Ereignis zu erstellen </string>
+    <string name="consejo_codigo_calendario">Teilen Sie dieses Code mit Ihren Freunden, sodass sie dem Ereignis erhälten können: </string>
+    <string name="toast_copiar">Richtig kopiert </string>
+    <string name="dias_comunes">Gemeinsame Tage: </string>
+    <string name="tus_eventos">Seine speicherer Tagen: </string>
+    <string name="consejo_ver_calendario">Bitte einfügen Sie das Ereignis\' Code an dem folgendes Feld: </string>
+    <string name="nombre_ver_calendario">Einfügen Seine Name an dem folgendes Feld: </string>
+    <string name="advertencia_usuario_existente">Es gibt bereits einen Benutzer mit diesem Namen. Bitte ändern es.</string>
+    <string name="advertencia_elegir_dia">Bitte wählen Sie Seinem verfügbaren Tage.</string>
+    <string name="advertencia_fecha_anterior">Sie können nicht eine weitere Datum aus die "von" Datum wählen.</string>
+    <string name="advertencia_fecha_no_valida">Datum Error, Format nicht gültig.</string>
+    <string name="advertencia_no_calendario">Es gibt keine Ereignis mit dieses Code.</string>
+    <string name="advertencia_no_internet">Kein Internet Verbindung erfunden, bitte Überprüfen Sie Ihr Netzwerk und nochmal probieren.</string>
+    <string name="consejo_mantener_hora">Choose the hours and press on save.</string>
+    <string name="nombre_calendario">Kein Name</string>
+    <string name="nombre_creador_evento">Unbekannt Erschaffer</string>
+    <string name="nombre_evento">Unbekannt Ereignis</string>
+
+    <string name="enero">Januar</string>
+    <string name="febrero">Februar</string>
+    <string name="marzo">März</string>
+    <string name="abril">April</string>
+    <string name="mayo">Mai</string>
+    <string name="junio">Juni</string>
+    <string name="julio">Juli</string>
+    <string name="agosto">August</string>
+    <string name="septiembre">September</string>
+    <string name="octubre">Oktober</string>
+    <string name="noviembre">November</string>
+    <string name="diciembre">Dezember</string>
+
+    <string name="string_spinner_tipo_calendario">Choose timetable</string>
+    <string-array name="tipo_calendario">
+        <item>By days</item>
+        <item>By hours (not available)</item>
+        <item>By weeks (not available)</item>
+        <item>By monts (not available)</item>
+    </string-array>
+    <string name="string_spinner_horas_calendario">Choose timetable</string>
+    <string name="dias_comunes_vacios">Es gibt keine gemeinsam Tag...</string>
+    <string name="sin_eventos">Sie haben keine Ereignis gespeichert...</string>
+    <string name="eliminar_evento">Ereignis löschen</string>
+    <string name="borrar_evento">Ereignis löschen?</string>
+    <string name="eliminar_evento_confirmacion">Sind Sie sicher um das Ereignis zu löschen?</string>
+    <string name="eliminar_evento_confirmacion_todos">Achtung: Sie werden das Ereignis für Alle löschen. Sind Sie sicher?</string>
+    <string name="cancelar_borrado_evento">Zurück</string>
+    <string name="aceptar_borrado_evento">Bestätigen</string>
+    <string name="evento_creado_por">Erstellt bei:</string>
+    <string name="sin_seleccionar_dia">Kein Tag gewählt</string>
+    <string name="advertencia_evento_presente">Sie haben bereits das Ereignis gespeichert. Gehen Sie nach Meine Ereignisse um die Ergebnis zu sehen.</string>
+    <string name="error_descarga">Error während das Kalendar unterladen.\nHaben Sie das Kode einfügt?</string>
+    <string-array name="horas_calendario">
+        <item>00:00</item>
+        <item>01:00</item>
+        <item>02:00</item>
+        <item>03:00</item>
+        <item>04:00</item>
+        <item>05:00</item>
+        <item>06:00</item>
+        <item>07:00</item>
+        <item>08:00</item>
+        <item>09:00</item>
+        <item>10:00</item>
+        <item>11:00</item>
+        <item>12:00</item>
+        <item>13:00</item>
+        <item>14:00</item>
+        <item>15:00</item>
+        <item>16:00</item>
+        <item>17:00</item>
+        <item>18:00</item>
+        <item>19:00</item>
+        <item>20:00</item>
+        <item>21:00</item>
+        <item>22:00</item>
+        <item>23:00</item>
+    </string-array>
+</resources>

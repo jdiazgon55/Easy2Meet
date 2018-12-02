@@ -2,7 +2,7 @@
     <string name="app_name">DayPicker</string>
     <string name="crear_calendario">Create event</string>
     <string name="guardar_horas">Save hours</string>
-    <string name="instrucciones">Instrucctions</string>
+    <string name="instrucciones">Instructions</string>
     <string name="mis_calendarios">My events</string>
     <string name="ver_calendario">Get event</string>
     <string name="set_nombre_calendario">Event\'s name</string>
@@ -59,11 +59,11 @@
         <item>By weeks (not available)</item>
         <item>By monts (not available)</item>
     </string-array>
-    <string name="string_spinner_horas_calendario">Chose timetable</string>
+    <string name="string_spinner_horas_calendario">Choose timetable</string>
     <string name="dias_comunes_vacios">There are no common days...</string>
     <string name="sin_eventos">You do not have any stored event...</string>
     <string name="eliminar_evento">Remove event</string>
-    <string name="borrar_evento">¿Remove Event?</string>
+    <string name="borrar_evento">Remove Event?</string>
     <string name="eliminar_evento_confirmacion">¿Are you sure you want to remove it?</string>
     <string name="eliminar_evento_confirmacion_todos">Attention: You are going to remove this event for everyone. Are you sure?</string>
     <string name="cancelar_borrado_evento">Cancel</string>
