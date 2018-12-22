@@ -8,7 +8,7 @@
     <string name="ver_calendario">Erhält Ereignis</string>
     <string name="set_nombre_calendario">Ereignis\' Name</string>
     <string name="set_apodo_calendario">geben Sie ein Spitzname</string>
-    <string name="codigo_calendario_edit_text">Ereignis\' code</string>
+    <string name="codigo_calendario_edit_text">Ereignis\' Code</string>
     <string name="nombre_usuario_edit_text">Seine Name:</string>
     <string name="set_desde_fecha">TT/MM/JJJJ</string>
     <string name="set_hasta_fecha">TT/MM/JJJJ</string>
