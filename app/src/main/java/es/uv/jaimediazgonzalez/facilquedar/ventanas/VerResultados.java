@@ -31,6 +31,8 @@ import org.w3c.dom.Text;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -95,8 +97,8 @@ public class VerResultados extends AppCompatActivity {
         layout = (RelativeLayout) findViewById(R.id.relative_layout);
 
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+        mInterstitialAd.setAdUnitId("ca-app-pub-4541521919567374/8544259144");
+        mInterstitialAd.loadAd(new AdRequest.Builder().addTestDevice("C42B273B43CE4B989BF1D9B059A047C3").build());
         mInterstitialAd.setAdListener(interstitialADListener);
 
         /* LISTENERS */
@@ -121,14 +123,14 @@ public class VerResultados extends AppCompatActivity {
                 diasComunesAdapter.setDiasComunes(diasComunesArray);
                 comunesList.setAdapter(diasComunesAdapter);
                 ListaUtil.setListViewHeightBasedOnChildren(comunesList);
-                Log.d(TAG, "Value is: " + usersHashMap.toString());
+                //Log.d(TAG, "Value is: " + usersHashMap.toString());
             }
         }
 
         @Override
         public void onCancelled(DatabaseError databaseError) {
             // Getting Post failed, log a message
-            Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            //Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
             Toast.makeText(VerResultados.this, "Fallo al descargar el calendario.\n " +
                             "¿Estás conectado a internet?.",
                     Toast.LENGTH_LONG).show();
@@ -242,13 +244,32 @@ public class VerResultados extends AppCompatActivity {
                 Integer month = Integer.parseInt(split[1]);
                 Integer year = Integer.parseInt(split[2]);
 
+                Calendar c = Calendar.getInstance();
+                c.set(year, month, day, 0, 0);
+
                 String stringMonth = monthToString(month);
-                FechaCursor tmpFecha = new FechaCursor(day, stringMonth, year);
+                String stringWeekDay = getWeekDay(c.get(Calendar.DAY_OF_WEEK));
+                FechaCursor tmpFecha = new FechaCursor(day, stringMonth, year, stringWeekDay);
 
                 diasCursorTemp.add(tmpFecha);
             }
         }
         return diasCursorTemp;
+    }
+
+    private String getWeekDay(int weekDay) {
+        switch(weekDay){
+            case 1: return getResources().getString(R.string.domingo);
+            case 2: return getResources().getString(R.string.lunes);
+            case 3: return getResources().getString(R.string.martes);
+            case 4: return getResources().getString(R.string.miercoles);
+            case 5: return getResources().getString(R.string.jueves);
+            case 6: return getResources().getString(R.string.viernes);
+            case 7: return getResources().getString(R.string.sabado);
+            default:
+                //Log.e("", "No existe dicho mes");
+                return "error";
+        }
     }
 
     private boolean isSelectedDatesNotEmpty(List<String> selectedDates) {
@@ -292,7 +313,7 @@ public class VerResultados extends AppCompatActivity {
             case 10: return getResources().getString(R.string.noviembre);
             case 11: return getResources().getString(R.string.diciembre);
             default:
-                Log.e("", "No existe dicho mes");
+                //Log.e("", "No existe dicho mes");
                 return "error";
         }
     }
@@ -306,7 +327,7 @@ public class VerResultados extends AppCompatActivity {
             if (mInterstitialAd.isLoaded()) {
                 mInterstitialAd.show();
             } else {
-                Log.d("TAG", "The interstitial wasn't loaded yet.");
+                //Log.d("TAG", "The interstitial wasn't loaded yet.");
                 //Declaro el Intent.
                 Intent explicit_intent;
                 //Instanciamos el Intent dandole:

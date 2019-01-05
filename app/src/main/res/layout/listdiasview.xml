@@ -23,11 +23,20 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
         <TextView
             android:id="@+id/anyo"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
             android:layout_toRightOf="@id/mes"
             android:text="1995"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        <TextView
+            android:id="@+id/diaSemana"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@id/anyo"
+            android:textStyle="italic"
+            android:text="donnerstag"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </RelativeLayout>
 

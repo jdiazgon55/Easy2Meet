@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import es.uv.jaimediazgonzalez.facilquedar.R;
 
@@ -22,6 +23,7 @@ public class DiasComunesAdapter extends BaseAdapter {
         TextView diaText;
         TextView mesText;
         TextView anyoText;
+        TextView diaSemanaText;
     }
 
     public DiasComunesAdapter(Context context, ArrayList<FechaCursor> tmpDiasComunes) {
@@ -63,6 +65,7 @@ public class DiasComunesAdapter extends BaseAdapter {
             holder.diaText = (TextView) v.findViewById(R.id.dia);
             holder.mesText = (TextView) v.findViewById(R.id.mes);
             holder.anyoText = (TextView) v.findViewById(R.id.anyo);
+            holder.diaSemanaText = (TextView) v.findViewById(R.id.diaSemana);
             v.setTag(holder);
         } else {
             // Si no es null la reutilizamos para actualizarla
@@ -75,16 +78,20 @@ public class DiasComunesAdapter extends BaseAdapter {
             holder.diaText.setText(String.valueOf(fecha.getDia()));
             holder.mesText.setText(fecha.getMes());
             holder.anyoText.setText(String.valueOf(fecha.getAnyo()));
+            // Coger dia de la semana
+            holder.diaSemanaText.setText(String.valueOf(fecha.getDiaSemana()));
 
             // Si es un dia común, lo pintamos de verde
             if(isFechaComun(fecha)){
                 holder.diaText.setTextColor(Color.rgb(79, 178, 9));
                 holder.mesText.setTextColor(Color.rgb(79, 178, 9));
                 holder.anyoText.setTextColor(Color.rgb(79, 178, 9));
+                holder.diaSemanaText.setTextColor(Color.rgb(79, 178, 9));
             } else{
                 holder.diaText.setTextColor(Color.rgb(255, 86, 25));
                 holder.mesText.setTextColor(Color.rgb(255, 86, 25));
                 holder.anyoText.setTextColor(Color.rgb(255, 86, 25));
+                holder.diaSemanaText.setTextColor(Color.rgb(255, 86, 25));
             }
         }
         return v;

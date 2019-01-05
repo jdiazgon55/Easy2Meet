@@ -126,7 +126,7 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
 
         calendario.addDecorator(eventDecoratorSeleccionados);
         calendario.addDecorator(eventDecoratorComunes);
-        Log.d(TAG, "Value is: " + usersHashMap.toString());
+        //Log.d(TAG, "Value is: " + usersHashMap.toString());
     }
 
     ValueEventListener retrieveUsersDataListener = new ValueEventListener() {
@@ -163,14 +163,14 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
 
                 calendario.addDecorator(eventDecoratorSeleccionados);
                 calendario.addDecorator(eventDecoratorComunes);
-                Log.d(TAG, "Value is: " + usersHashMap.toString());
+                //Log.d(TAG, "Value is: " + usersHashMap.toString());
             }
         }
 
         @Override
         public void onCancelled(DatabaseError databaseError) {
             // Getting Post failed, log a message
-            Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            //Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
             Toast.makeText(CalendarioRecibido.this, "Fallo al descargar el calendario.\n " +
                             "¿Estás conectado a internet?.",
                     Toast.LENGTH_LONG).show();
@@ -242,13 +242,13 @@ public class CalendarioRecibido extends AppCompatActivity implements OnDateSelec
             Toast.makeText(CalendarioRecibido.this, advertenciaElegirDia,
                     Toast.LENGTH_LONG).show();
 
-            Log.d(TAG, "Value is: " + propiedadesCalendarioHashMap.toString());
+            //Log.d(TAG, "Value is: " + propiedadesCalendarioHashMap.toString());
         }
 
         @Override
         public void onCancelled(DatabaseError databaseError) {
             // Getting Post failed, log a message
-            Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            //Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
             Toast.makeText(CalendarioRecibido.this, "Fallo al descargar el calendario.\n " +
                             "¿Estás conectado a internet?.",
                     Toast.LENGTH_SHORT).show();

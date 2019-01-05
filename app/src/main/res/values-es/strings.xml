@@ -99,4 +99,11 @@
         <item>22:00</item>
         <item>23:00</item>
     </string-array>
+    <string name="domingo">Domingo</string>
+    <string name="lunes">Lunes</string>
+    <string name="martes">Martes</string>
+    <string name="miercoles">Miércoles</string>
+    <string name="jueves">Jueves</string>
+    <string name="viernes">Viernes</string>
+    <string name="sabado">Sábado</string>
 </resources>

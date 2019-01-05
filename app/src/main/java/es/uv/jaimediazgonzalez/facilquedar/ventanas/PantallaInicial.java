@@ -39,7 +39,7 @@ public class PantallaInicial extends AppCompatActivity {
         MobileAds.initialize(this, "ca-app-pub-4541521919567374~6802638036");
 
         mAdView = (AdView)findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("C42B273B43CE4B989BF1D9B059A047C3").build();
         mAdView.loadAd(adRequest);
 
         /* LISTENERS */
@@ -88,6 +88,9 @@ public class PantallaInicial extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
     }
 }

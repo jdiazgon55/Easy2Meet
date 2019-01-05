@@ -81,7 +81,7 @@ public class CalendarioCreado extends AppCompatActivity {
         ejecutarGuardarEventoAsync(nombreCalendario, apodoUsuario);
 
         mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        mInterstitialAd.setAdUnitId("ca-app-pub-4541521919567374/8544259144");
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
         mInterstitialAd.setAdListener(interstitialADListener);
 
@@ -112,7 +112,7 @@ public class CalendarioCreado extends AppCompatActivity {
             if (mInterstitialAd.isLoaded()) {
                 mInterstitialAd.show();
             } else {
-                Log.d("TAG", "The interstitial wasn't loaded yet.");
+                //Log.d("TAG", "The interstitial wasn't loaded yet.");
                 //Declaro el Intent.
                 Intent explicit_intent;
                 //Instanciamos el Intent dandole:

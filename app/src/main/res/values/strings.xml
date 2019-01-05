@@ -52,6 +52,14 @@
     <string name="noviembre">of November</string>
     <string name="diciembre">of December</string>
 
+    <string name="domingo">Sunday</string>
+    <string name="lunes">Monday</string>
+    <string name="martes">Tuesday</string>
+    <string name="miercoles">Wednesday</string>
+    <string name="jueves">Thursday</string>
+    <string name="viernes">Friday</string>
+    <string name="sabado">Saturday</string>
+
     <string name="string_spinner_tipo_calendario">Chose timetable</string>
     <string-array name="tipo_calendario">
         <item>By days</item>
