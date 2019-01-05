@@ -27,6 +27,7 @@ public class CrearCalendario  extends AppCompatActivity {
     private Button listo;
     private EditText nombreCalendario, fechaDesde, fechaHasta, apodoUsuario;
     private Spinner horaInicial, horaFinal;
+    DateDialog dateDialogDesde, dateDialogHasta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,8 +63,9 @@ public class CrearCalendario  extends AppCompatActivity {
 
     public void onStart(){
         super.onStart();
-        DateDialog dateDialogDesde = new DateDialog(this, R.id.desdeFechaPicker);
-        DateDialog dateDialogHasta = new DateDialog(this, R.id.hastaFechaPicker);
+        dateDialogDesde = new DateDialog(this, R.id.desdeFechaPicker);
+        dateDialogHasta = new DateDialog(this, R.id.hastaFechaPicker);
+
     }
 
     /* LISTENERS */
@@ -115,6 +117,11 @@ public class CrearCalendario  extends AppCompatActivity {
     private void comprobarFechaDesdeHasta()  {
         String s1 = fechaDesde.getText().toString();
         String s2 = fechaHasta.getText().toString();
+
+        if(!s1.equals("")){
+            dateDialogHasta.updateDate(dateDialogDesde.get_birthYear(), dateDialogDesde.get_month(),
+                    dateDialogDesde.get_day());
+        }
 
         if(s1.equals("") || s2.equals(""))
         {

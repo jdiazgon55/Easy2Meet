@@ -113,6 +113,11 @@ public class CalendarioCreado extends AppCompatActivity {
                 mInterstitialAd.show();
             } else {
                 Log.d("TAG", "The interstitial wasn't loaded yet.");
+                //Declaro el Intent.
+                Intent explicit_intent;
+                //Instanciamos el Intent dandole:
+                explicit_intent = new Intent(CalendarioCreado.this, PantallaInicial.class);
+                startActivity(explicit_intent);
             }
         }
     };
